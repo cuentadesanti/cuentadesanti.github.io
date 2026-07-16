@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Santiago Silva Avalos — Selected Work</title>
+<style>
+  :root{
+    --paper:#f3efe6; --ink:#17140f; --muted:#6f6858; --faint:#8f887a;
+    --line:#ddd5c5; --line2:#e8e1d3; --accent:#9c3a2c; --accent2:#8a6a1c;
+    --card:#efe9dd;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#151310; --ink:#ece6d9; --muted:#968d7b; --faint:#726a5b;
+      --line:#2c2820; --line2:#231f19; --accent:#d5694f; --accent2:#cca24f;
+      --card:#1b1812;
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#f3efe6; --ink:#17140f; --muted:#6f6858; --faint:#8f887a;
+    --line:#ddd5c5; --line2:#e8e1d3; --accent:#9c3a2c; --accent2:#8a6a1c; --card:#efe9dd;
+  }
+  :root[data-theme="dark"]{
+    --paper:#151310; --ink:#ece6d9; --muted:#968d7b; --faint:#726a5b;
+    --line:#2c2820; --line2:#231f19; --accent:#d5694f; --accent2:#cca24f; --card:#1b1812;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+
+  /* ---- top bar / controls ---- */
+  .bar{
+    position:sticky; top:0; z-index:20; background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:saturate(120%) blur(8px); border-bottom:1px solid var(--line2);
+  }
+  .bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:14px; padding-bottom:14px}
+  .brand{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+  .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+  .seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:var(--card)}
+  .seg button{
+    font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    border:0; background:transparent; color:var(--muted); padding:6px 12px; cursor:pointer; transition:.18s;
+  }
+  .seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+  .seg button:hover:not([aria-pressed="true"]){color:var(--ink)}
+  .icon-btn{
+    font-family:var(--mono); font-size:13px; border:1px solid var(--line); background:var(--card);
+    color:var(--muted); width:34px; height:32px; border-radius:8px; cursor:pointer; transition:.18s;
+  }
+  .icon-btn:hover{color:var(--ink); border-color:var(--muted)}
+
+  /* ---- masthead ---- */
+  header.mast{padding:64px 0 30px}
+  .kicker{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 18px}
+  h1{
+    font-family:var(--serif); font-weight:600; letter-spacing:-.01em; line-height:1.02;
+    font-size:clamp(42px,8vw,86px); margin:0 0 8px;
+  }
+  .role{font-family:var(--serif); font-style:italic; font-size:clamp(19px,3.2vw,26px); color:var(--muted); margin:0 0 26px}
+  .lede{max-width:46ch; font-size:19px; color:var(--ink); margin:0}
+  .lede .hl{color:var(--accent); font-style:italic; font-family:var(--serif)}
+  .meta-row{display:flex; gap:22px; flex-wrap:wrap; margin-top:26px; font-family:var(--mono); font-size:12.5px; letter-spacing:.04em}
+  .meta-row a{color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; transition:.18s}
+  .meta-row a:hover{color:var(--accent); border-color:var(--accent)}
+
+  .rule{height:1px; background:var(--line); margin:8px 0 0}
+
+  /* ---- section heading ---- */
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; margin:54px 0 6px}
+  .sec-head h2{font-family:var(--serif); font-weight:600; font-size:15px; letter-spacing:.02em; margin:0; text-transform:uppercase; letter-spacing:.14em}
+  .sec-head .count{font-family:var(--mono); font-size:12px; color:var(--faint)}
+  .lens-note{font-family:var(--mono); font-size:12px; color:var(--faint); margin:2px 0 0}
+
+  /* ---- project rows ---- */
+  .proj{
+    display:grid; grid-template-columns:56px 1fr; gap:8px 20px;
+    padding:30px 0; border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .proj:first-of-type{border-top:1px solid var(--ink)}
+  .num{font-family:var(--mono); font-size:13px; color:var(--faint); padding-top:8px}
+  .body{min-width:0}
+  .ptop{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .ptitle{font-family:var(--serif); font-weight:600; font-size:clamp(24px,3.6vw,32px); line-height:1.1; letter-spacing:-.01em; margin:0}
+  .year{font-family:var(--mono); font-size:12.5px; color:var(--faint); white-space:nowrap}
+  .line{font-family:var(--serif); font-style:italic; font-size:19px; color:var(--accent); margin:8px 0 0}
+  .blurb{color:var(--muted); margin:12px 0 0; max-width:64ch}
+  .tags{display:flex; flex-wrap:wrap; gap:7px; margin:16px 0 0}
+  .tag{font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:3px 10px}
+  .links{display:flex; flex-wrap:wrap; gap:18px; margin:16px 0 0; font-family:var(--mono); font-size:12.5px; letter-spacing:.04em}
+  .links a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px; transition:.18s}
+  .links a:hover{color:var(--accent)}
+  .links a::after{content:" ↗"; color:var(--faint); font-size:11px}
+  .links .lock{color:var(--faint); border-bottom:1px dotted var(--line)}
+  .links .lock::after{content:" · private"}
+
+  .figure{margin:20px 0 0; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--card)}
+  .figure img{display:block; width:100%; height:auto}
+  .figure figcaption{font-family:var(--mono); font-size:11px; color:var(--faint); padding:8px 12px; border-top:1px solid var(--line2)}
+
+  /* also list */
+  .also{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2px 26px; margin:14px 0 0; border-top:1px solid var(--line)}
+  .also .row{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:13px 0; border-bottom:1px solid var(--line2)}
+  .also .n{font-family:var(--serif); font-size:16px}
+  .also .d{font-family:var(--mono); font-size:11px; color:var(--faint); text-align:right; max-width:16ch}
+  .also a{color:inherit; text-decoration:none}
+  .also a:hover .n{color:var(--accent)}
+
+  footer{margin:70px 0 60px; padding-top:26px; border-top:1px solid var(--ink)}
+  footer .fq{font-family:var(--serif); font-style:italic; font-size:20px; color:var(--muted); max-width:40ch; margin:0 0 20px}
+  footer .fl{display:flex; gap:22px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px}
+  footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px}
+  footer a:hover{color:var(--accent); border-color:var(--accent)}
+  .colophon{font-family:var(--mono); font-size:11px; color:var(--faint); margin-top:26px}
+
+  @media (max-width:620px){
+    .proj{grid-template-columns:1fr; gap:2px}
+    .num{padding-top:0}
+    .lede{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="brand">SSA — Índice / Index</div>
+    <div class="controls">
+      <div class="seg" id="lens" role="group" aria-label="Lens">
+        <button data-lens="industry" aria-pressed="true">Industry</button>
+        <button data-lens="research" aria-pressed="false">Research</button>
+      </div>
+      <div class="seg" id="lang" role="group" aria-label="Language">
+        <button data-lang="en" aria-pressed="true">EN</button>
+        <button data-lang="es" aria-pressed="false">ES</button>
+      </div>
+      <button class="icon-btn" id="theme" title="Theme" aria-label="Toggle theme">◐</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="kicker" id="kicker">Statistical modeling · AI systems</p>
+    <h1>Santiago<br>Silva Avalos</h1>
+    <p class="role" id="role"></p>
+    <p class="lede" id="lede"></p>
+    <div class="meta-row">
+      <a href="https://github.com/cuentadesanti" target="_blank" rel="noopener">github.com/cuentadesanti</a>
+      <a href="mailto:cuentadesanti@gmail.com">cuentadesanti@gmail.com</a>
+    </div>
+  </header>
+
+  <div class="sec-head">
+    <h2 id="sec-title">Selected Work</h2>
+    <span class="count" id="sec-count"></span>
+  </div>
+  <p class="lens-note" id="lens-note"></p>
+
+  <main id="list"></main>
+
+  <div class="sec-head">
+    <h2 id="also-title">Also on GitHub</h2>
+  </div>
+  <div class="also" id="also"></div>
+
+  <footer>
+    <p class="fq" id="footq"></p>
+    <div class="fl">
+      <a href="https://github.com/cuentadesanti" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:cuentadesanti@gmail.com">Email</a>
+    </div>
+    <p class="colophon" id="colophon"></p>
+  </footer>
+</div>
+
+<script>
+const T = {
+  en:{
+    role:"Applied Bayesian modeling, and the systems that put it to work.",
+    lede_industry:"I build <span class='hl'>end-to-end data & AI systems</span> — from probabilistic models to the pipelines, APIs and interfaces that ship them.",
+    lede_research:"I build <span class='hl'>generative models of messy real-world data</span> — latent structure, uncertainty, and reproducibility, from social science to genomics.",
+    sec:"Selected Work", also:"Also on GitHub",
+    note_industry:"Viewing as ‘Industry’ — ordered and framed by product & engineering. Toggle to Research above.",
+    note_research:"Viewing as ‘Research’ — ordered and framed by method & inference. Toggle to Industry above.",
+    footq:"Two lenses on the same work. Pick the one that fits — the projects don’t change, only the framing.",
+    colophon:"Hand-built. No template, no framework. Set in Iowan Old Style."
+  },
+  es:{
+    role:"Modelado bayesiano aplicado, y los sistemas que lo ponen a trabajar.",
+    lede_industry:"Construyo <span class='hl'>sistemas de datos e IA de punta a punta</span> — del modelo probabilístico a los pipelines, APIs e interfaces que lo entregan.",
+    lede_research:"Construyo <span class='hl'>modelos generativos de datos reales y sucios</span> — estructura latente, incertidumbre y reproducibilidad, de la ciencia social a la genómica.",
+    sec:"Trabajo seleccionado", also:"También en GitHub",
+    note_industry:"Vista ‘Industria’ — ordenado y encuadrado por producto e ingeniería. Cambia a Research arriba.",
+    note_research:"Vista ‘Research’ — ordenado y encuadrado por método e inferencia. Cambia a Industria arriba.",
+    footq:"Dos lentes sobre el mismo trabajo. Elige la que te sirva — los proyectos no cambian, solo el encuadre.",
+    colophon:"Hecho a mano. Sin plantilla ni framework. Compuesto en Iowan Old Style."
+  }
+};
+
+const P = [
+  {
+    title:"Marginación vs. Poverty — municipal latent space",
+    year:"2026", order:{industry:5, research:1},
+    fig:"assets/pobreza.png",
+    figcap:{en:"Latent material-deprivation axis, 2,469 Mexican municipalities (2020).", es:"Eje latente de privación material, 2,469 municipios de México (2020)."},
+    line:{
+      en:{industry:"An end-to-end probabilistic pipeline from official census tables to a fitted, uncertainty-aware latent model.",
+          research:"A generative model reconciling two official measurements as noisy views of one deprivation phenomenon."},
+      es:{industry:"Pipeline probabilístico de punta a punta: de las tablas censales oficiales a un modelo latente ajustado con incertidumbre.",
+          research:"Modelo generativo que reconcilia dos mediciones oficiales como vistas ruidosas de un mismo fenómeno de privación."}
+    },
+    blurb:{
+      en:"A GLLVM latent space of municipal deprivation integrating CONAPO marginación and CONEVAL multidimensional poverty (Mexico 2020). Separates common dimensions, method effects and spatial (ICAR) structure — showing territorial inequality operates at two scales, roughly half between states and half within.",
+      es:"Espacio latente GLLVM de privación municipal que integra la marginación de CONAPO y la pobreza multidimensional de CONEVAL (México 2020). Separa dimensiones comunes, efectos de método y estructura espacial (ICAR) — mostrando que la desigualdad territorial opera en dos escalas, ~mitad entre estados y mitad dentro."
+    },
+    tags:["GLLVM","latent variables","Bayesian","spatial / ICAR","Python · R"],
+    links:[{t:"Repository",h:"https://github.com/cuentadesanti/pobreza-marginacion"},{t:"Manuscript",h:"https://github.com/cuentadesanti/pobreza-marginacion/blob/main/paper/manuscrito.md"}]
+  },
+  {
+    title:"CD4⁺ T-cell Regulator Atlas — Perturb-seq",
+    year:"2026", order:{industry:2, research:2},
+    fig:"assets/perturbseq.png",
+    figcap:{en:"Operator modules — flagship figure, empirical regulatory operator.", es:"Módulos del operador — figura insignia del operador regulatorio empírico."},
+    line:{
+      en:{industry:"A memory-aware bioinformatics system that runs its full core from 15 MB of CSVs and slices a 1.8 TB dataset from S3 without downloading it.",
+          research:"Empirical-Bayes ranking of robust regulators from a genome-scale CRISPRi screen — large, reproducible effects with explicit uncertainty."},
+      es:{industry:"Sistema de bioinformática consciente de memoria: corre su núcleo completo desde 15 MB de CSVs y rebana un dataset de 1.8 TB en S3 sin descargarlo.",
+          research:"Ranking empirical-Bayes de reguladores robustos en un screen CRISPRi a escala genómica — efectos grandes y reproducibles con incertidumbre explícita."}
+    },
+    blurb:{
+      en:"Turns a genome-scale CD4⁺ T-cell Perturb-seq screen into three explorable objects — robust regulators, reproducibility audits, and transcriptional programs. Submission to ‘Built with Claude: Life Sciences’.",
+      es:"Convierte un screen Perturb-seq de células T CD4⁺ a escala genómica en tres objetos explorables — reguladores robustos, auditorías de reproducibilidad y programas transcriptómicos. Submission a ‘Built with Claude: Life Sciences’."
+    },
+    tags:["empirical Bayes","single-cell","reproducibility","S3 streaming"],
+    links:[{t:"Repository",h:"https://github.com/cuentadesanti/cd4-perturbseq-regulator-atlas"},{t:"Demo video",h:"https://youtu.be/3tu_3JmHh14"},{t:"Manuscript (PDF)",h:"https://github.com/cuentadesanti/cd4-perturbseq-regulator-atlas/blob/main/docs/CD4_operator_manuscript.pdf"}]
+  },
+  {
+    title:"Mauricio — self-hosted personal AI",
+    year:"2026", order:{industry:1, research:4},
+    line:{
+      en:{industry:"A self-hosted AI across voice, WhatsApp and web — shared memory, RAG, a tool loop, and a self-improvement loop that opens its own PRs.",
+          research:"An agentic architecture with full-temporality memory — supersession, expiry, audit trail — traced end-to-end and gated by eval suites."},
+      es:{industry:"IA self-hosted en voz, WhatsApp y web — memoria compartida, RAG, tool loop y un loop de auto-mejora que abre sus propios PRs.",
+          research:"Arquitectura agéntica con memoria de temporalidad completa — supersesión, expiración, audit trail — trazada de punta a punta y protegida por suites de evals."}
+    },
+    blurb:{
+      en:"A FastAPI brain behind LibreChat, a Raspberry-Pi voice satellite and WhatsApp, all sharing long-term memory (pgvector) and tools. Every LLM call traced in Langfuse; YAML evals gate each PR; a triage LLM can spawn Claude Code in a git worktree to add its own tools.",
+      es:"Un cerebro FastAPI detrás de LibreChat, un satélite de voz en Raspberry Pi y WhatsApp, compartiendo memoria de largo plazo (pgvector) y herramientas. Cada llamada al LLM trazada en Langfuse; evals YAML protegen cada PR; un LLM de triage puede lanzar Claude Code en un git worktree para agregar sus propias tools."
+    },
+    tags:["LLM systems","RAG · pgvector","agents","FastAPI","Langfuse"],
+    links:[{lock:true}]
+  },
+  {
+    title:"papers — a bandit recommender as an MCP server",
+    year:"2026", order:{industry:3, research:3},
+    line:{
+      en:{industry:"A paper recommender exposed as an MCP server — Thompson sampling + MMR over Semantic Scholar, arXiv and citation-graph ingestion.",
+          research:"A contextual bandit over SPECTER2 embeddings: Bayesian regression with intentional exploration and preference decay from sparse feedback."},
+      es:{industry:"Recomendador de papers expuesto como servidor MCP — Thompson sampling + MMR sobre Semantic Scholar, arXiv e ingesta de grafo de citas.",
+          research:"Bandit contextual sobre embeddings SPECTER2: regresión bayesiana con exploración intencional y decaimiento de preferencias desde feedback escaso."}
+    },
+    blurb:{
+      en:"Add papers, get personalized recommendations, give 👍/👎, repeat — the longer you use it, the better it gets. Thompson sampling explores directions it’s uncertain about; MMR keeps the top-k diverse.",
+      es:"Agrega papers, recibe recomendaciones personalizadas, da 👍/👎, repite — mientras más lo usas, mejor recomienda. Thompson sampling explora direcciones inciertas; MMR mantiene diverso el top-k."
+    },
+    tags:["contextual bandits","Thompson sampling","MCP","MMR"],
+    links:[{t:"Repository",h:"https://github.com/cuentadesanti/papers"}]
+  },
+  {
+    title:"Data Simulator — synthetic data from DAGs",
+    year:"2026", order:{industry:4, research:6},
+    line:{
+      en:{industry:"A full-stack visual tool (FastAPI + React 19) to build probabilistic DAGs and forward-sample synthetic datasets.",
+          research:"Author generative models as DAGs with literal, formula or lookup parameters and global / group / row scopes."},
+      es:{industry:"Herramienta visual full-stack (FastAPI + React 19) para construir DAGs probabilísticos y muestrear datasets sintéticos por forward sampling.",
+          research:"Define modelos generativos como DAGs con parámetros literales, por fórmula o lookup, y scopes global / grupo / fila."}
+    },
+    blurb:{
+      en:"Drag-and-drop probabilistic modeling: 100+ scipy distributions, dynamic parameters, cycle-checked validation, and CSV / Parquet / JSON export.",
+      es:"Modelado probabilístico drag-and-drop: 100+ distribuciones de scipy, parámetros dinámicos, validación con detección de ciclos y export a CSV / Parquet / JSON."
+    },
+    tags:["FastAPI","React 19","probabilistic DAGs","scipy.stats"],
+    links:[{t:"Repository",h:"https://github.com/cuentadesanti/data-simulator"}]
+  },
+  {
+    title:"spend-pipe — idempotent financial ingestion",
+    year:"2026", order:{industry:6, research:7},
+    line:{
+      en:{industry:"Bank & card files → common schema → dedup → review web UI → idempotent bulk-upsert to Actual Budget.",
+          research:"A deterministic identity model (occurrence-indexed IDs + dedup hash) for reproducible transaction ingestion."},
+      es:{industry:"Archivos de banco y tarjeta → schema común → dedup → web UI de revisión → bulk-upsert idempotente a Actual Budget.",
+          research:"Modelo de identidad determinista (IDs con occurrence index + dedup hash) para ingesta reproducible de transacciones."}
+    },
+    blurb:{
+      en:"A Python ingestion pipeline with an Alembic-managed schema and a versioned artifact boundary to a Node pusher — designed so re-running a batch never double-writes.",
+      es:"Pipeline de ingesta en Python con schema gestionado por Alembic y una frontera de artefacto versionado hacia un pusher en Node — diseñado para que re-correr un batch nunca duplique escrituras."
+    },
+    tags:["Python","idempotent pipelines","Alembic","SQLite · Postgres"],
+    links:[{t:"Repository",h:"https://github.com/cuentadesanti/spend-pipe"}]
+  },
+  {
+    title:"Airbnb — spatial Bayesian pricing",
+    year:"2026", order:{industry:7, research:5},
+    fig:"assets/airbnb-hexmap.png",
+    figcap:{en:"Posterior median nightly price by H3 cell — 82 cells across Spain (res 5).", es:"Precio mediano posterior por noche por celda H3 — 82 celdas en España (res 5)."},
+    line:{
+      en:{industry:"A short-term-rental pricing model over 111k Spanish listings, indexed on an H3 hex grid with per-cell uncertainty.",
+          research:"A hierarchical spatial Bayesian model of log-price on a two-level H3 grid, selected by ELPD / LOO against city and global baselines."},
+      es:{industry:"Modelo de pricing de renta corta sobre 111k listings españoles, indexado en una malla hexagonal H3 con incertidumbre por celda.",
+          research:"Modelo bayesiano espacial jerárquico del log-precio sobre una malla H3 de dos niveles, seleccionado por ELPD / LOO frente a baselines de ciudad y global."}
+    },
+    blurb:{
+      en:"Inside Airbnb data for Spain (111k listings) modeled with a non-centered hierarchical structure over a two-level H3 hexagon grid (res 5/6). Compares a ladder of models by ELPD/LOO, adds a robust Student-t likelihood and seasonal multipliers, and validates with posterior predictive checks — plus a CLIP visual-feature branch on cover photos.",
+      es:"Datos de Inside Airbnb para España (111k listings) modelados con estructura jerárquica no centrada sobre una malla de hexágonos H3 de dos niveles (res 5/6). Compara una escalera de modelos por ELPD/LOO, añade verosimilitud robusta Student-t y multiplicadores estacionales, y valida con posterior predictive checks — más una rama de features visuales CLIP sobre las fotos de portada."
+    },
+    tags:["hierarchical Bayesian","spatial · H3","PyMC","ELPD / LOO","PPC"],
+    links:[{t:"Repository",h:"https://github.com/cuentadesanti/airbnb-bayesian-pricing",pending:true}]
+  },
+  }
+];
+
+const ALSO = [
+  {n:"inegi-client", d:{en:"INEGI data client + dashboard",es:"cliente INEGI + dashboard"}, h:"https://github.com/cuentadesanti/inegi-client"},
+  {n:"micro-business CDMX", d:{en:"R→Python port · pub. paper",es:"port R→Python · paper pub."}, h:"https://github.com/ckelling/micro_business_mexico_city"},
+  {n:"finanzas-ai", d:{en:"Actual Budget import tools",es:"tools de import a Actual Budget"}, h:"https://github.com/cuentadesanti/finanzas-ai"},
+  {n:"whatsapp-tool", d:{en:"WhatsApp automation",es:"automatización de WhatsApp"}, h:"https://github.com/cuentadesanti/whatsapp-tool"},
+  {n:"wordcloud-uady", d:{en:"survey word clouds",es:"nubes de palabras de encuesta"}, h:"https://github.com/cuentadesanti/wordcloud-uady"}
+];
+
+let state = { lang:"en", lens:"industry" };
+
+function esc(s){return s;}
+
+function render(){
+  const t = T[state.lang], L = state.lang, X = state.lens;
+  document.documentElement.lang = L;
+  document.getElementById("role").textContent = t.role;
+  document.getElementById("lede").innerHTML = X==="industry"? t.lede_industry : t.lede_research;
+  document.getElementById("sec-title").textContent = t.sec;
+  document.getElementById("also-title").textContent = t.also;
+  document.getElementById("lens-note").textContent = X==="industry"? t.note_industry : t.note_research;
+  document.getElementById("footq").textContent = t.footq;
+  document.getElementById("colophon").textContent = t.colophon;
+
+  const items = P.slice().sort((a,b)=>a.order[X]-b.order[X]);
+  document.getElementById("sec-count").textContent = String(items.length).padStart(2,"0");
+
+  const linkLabel = {en:{pending:"Repository (publishing soon)",priv:"Private — case study"},
+                     es:{pending:"Repositorio (por publicar)",priv:"Privado — case study"}};
+
+  document.getElementById("list").innerHTML = items.map((p,i)=>{
+    const num = String(i+1).padStart(2,"0");
+    const fig = p.fig? `<figure class="figure"><img src="${p.fig}" alt="" loading="lazy"><figcaption>${p.figcap[L]}</figcaption></figure>`:"";
+    const tags = p.tags.map(x=>`<span class="tag">${x}</span>`).join("");
+    const links = p.links.map(x=>{
+      if(x.lock) return `<span class="lock">${linkLabel[L].priv}</span>`;
+      const label = x.pending? linkLabel[L].pending : x.t;
+      return `<a href="${x.h}" target="_blank" rel="noopener">${label}</a>`;
+    }).join("");
+    return `<article class="proj">
+      <div class="num">${num} / ${String(items.length).padStart(2,"0")}</div>
+      <div class="body">
+        <div class="ptop"><h3 class="ptitle">${p.title}</h3><span class="year">${p.year}</span></div>
+        <p class="line">${p.line[L][X]}</p>
+        <p class="blurb">${p.blurb[L]}</p>
+        <div class="tags">${tags}</div>
+        <div class="links">${links}</div>
+        ${fig}
+      </div>
+    </article>`;
+  }).join("");
+
+  document.getElementById("also").innerHTML = ALSO.map(a=>
+    `<a href="${a.h}" target="_blank" rel="noopener"><div class="row"><span class="n">${a.n}</span><span class="d">${a.d[L]}</span></div></a>`
+  ).join("");
+}
+
+// controls
+document.getElementById("lens").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  state.lens=b.dataset.lens;
+  document.querySelectorAll("#lens button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  render();
+});
+document.getElementById("lang").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  state.lang=b.dataset.lang;
+  document.querySelectorAll("#lang button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  render();
+});
+document.getElementById("theme").addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const sysDark=window.matchMedia("(prefers-color-scheme:dark)").matches;
+  const now = cur? cur : (sysDark?"dark":"light");
+  document.documentElement.setAttribute("data-theme", now==="dark"?"light":"dark");
+});
+
+render();
+</script>
+</body>
+</html>
