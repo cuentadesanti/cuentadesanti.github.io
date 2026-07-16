@@ -131,6 +131,7 @@
 
   .figure{margin:22px 0 0; border:3px solid var(--ink); background:var(--panel)}
   .figure img{display:block; width:100%; height:auto}
+  .figure video.vid{display:block; width:100%; height:auto; background:#0d1117}
   .figure figcaption{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.03em; padding:9px 13px; border-top:3px solid var(--ink)}
   .media-ph{margin:22px 0 0; border:3px dashed var(--line); background:var(--panel); padding:38px 20px; text-align:center}
   .media-ph .t{font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--faint)}
@@ -337,7 +338,9 @@ const P = [
   {
     featured:true, title:"Mauricio — self-hosted personal AI", year:"2026",
     order:{industry:1, research:4},
-    media:"soon",
+    video:"assets/mauricio-arch.mp4", poster:"assets/mauricio-arch.jpg",
+    figcap:{en:"Voice request path — wake word → VAD → STT → backend → LLM ⇄ tools → TTS. Animated with Manim.",
+            es:"Ruta de la petición de voz — wake word → VAD → STT → backend → LLM ⇄ tools → TTS. Animado con Manim."},
     line:{en:{industry:"Self-hosted personal AI with memory, voice, and self-written tools.",
               research:"Auditable agent architecture with temporal memory and evaluation-gated adaptation."},
           es:{industry:"IA personal self-hosted con memoria, voz y herramientas que se escribe sola.",
@@ -446,9 +449,13 @@ function renderActions(actions){
 }
 
 function renderFigure(p, L){
+  if(p.video){
+    return `<figure class="figure"><video class="vid" src="${p.video}" poster="${p.poster||""}"
+      autoplay muted loop playsinline preload="metadata" aria-label="${p.figcap[L]}"></video>
+      <figcaption>${p.figcap[L]}</figcaption></figure>`;
+  }
   if(p.media==="soon"){
-    return `<div class="media-ph"><span class="t">${UI[L].soon}</span></div>
-      <!-- Highest-impact future add: a 15s demo GIF/video for Mauricio. Drop it here, replacing .media-ph. -->`;
+    return `<div class="media-ph"><span class="t">${UI[L].soon}</span></div>`;
   }
   if(p.fig){
     return `<figure class="figure"><img src="${p.fig}" alt="${p.alt[L]}" loading="lazy">
