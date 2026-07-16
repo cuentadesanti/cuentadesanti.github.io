@@ -3,144 +3,189 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Santiago Silva Avalos — Selected Work</title>
+<title>Santiago Silva Avalos — Applied Mathematician</title>
+<meta name="description" content="Santiago Silva Avalos — applied mathematician building AI systems and computational research. Bayesian modeling, agentic systems, spatial statistics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#f3efe6; --ink:#17140f; --muted:#6f6858; --faint:#8f887a;
-    --line:#ddd5c5; --line2:#e8e1d3; --accent:#9c3a2c; --accent2:#8a6a1c;
-    --card:#efe9dd;
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
-    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
-    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+    --paper:#f4f3ef; --panel:#faf9f6; --ink:#111111; --muted:#5f5f5a; --faint:#98968d;
+    --line:#ddd9cf; --line2:#e9e6dd; --black:#111111;
+    --accent:#e5352b; --yellow:#ffc300;
+    --sans:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"Geist Mono","SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.2,.7,.2,1);
   }
   @media (prefers-color-scheme:dark){
-    :root{
-      --paper:#151310; --ink:#ece6d9; --muted:#968d7b; --faint:#726a5b;
-      --line:#2c2820; --line2:#231f19; --accent:#d5694f; --accent2:#cca24f;
-      --card:#1b1812;
-    }
+    :root{ --paper:#161514; --panel:#1c1b19; --ink:#ededea; --muted:#a19e95; --faint:#6f6c63;
+           --line:#2f2d29; --line2:#252320; --black:#000000; }
   }
-  :root[data-theme="light"]{
-    --paper:#f3efe6; --ink:#17140f; --muted:#6f6858; --faint:#8f887a;
-    --line:#ddd5c5; --line2:#e8e1d3; --accent:#9c3a2c; --accent2:#8a6a1c; --card:#efe9dd;
-  }
-  :root[data-theme="dark"]{
-    --paper:#151310; --ink:#ece6d9; --muted:#968d7b; --faint:#726a5b;
-    --line:#2c2820; --line2:#231f19; --accent:#d5694f; --accent2:#cca24f; --card:#1b1812;
-  }
+  :root[data-theme="light"]{ --paper:#f4f3ef; --panel:#faf9f6; --ink:#111; --muted:#5f5f5a; --faint:#98968d; --line:#ddd9cf; --line2:#e9e6dd; --black:#111; }
+  :root[data-theme="dark"]{ --paper:#161514; --panel:#1c1b19; --ink:#ededea; --muted:#a19e95; --faint:#6f6c63; --line:#2f2d29; --line2:#252320; --black:#000; }
 
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--paper); color:var(--ink);
-    font-family:var(--sans); font-size:17px; line-height:1.6;
-    -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  }
-  .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); font-size:17px;
+       line-height:1.55; font-weight:400; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+       transition:background .4s var(--ease), color .4s var(--ease)}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 30px}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .skip{position:absolute; left:-9999px; top:0; background:var(--ink); color:var(--paper);
+        font-family:var(--mono); font-size:12px; padding:10px 14px; z-index:100}
+  .skip:focus{left:8px; top:8px}
+  .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-weight:500}
 
-  /* ---- top bar / controls ---- */
-  .bar{
-    position:sticky; top:0; z-index:20; background:color-mix(in srgb,var(--paper) 88%,transparent);
-    backdrop-filter:saturate(120%) blur(8px); border-bottom:1px solid var(--line2);
-  }
-  .bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:14px; padding-bottom:14px}
-  .brand{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
-  .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-  .seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:var(--card)}
-  .seg button{
-    font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-    border:0; background:transparent; color:var(--muted); padding:6px 12px; cursor:pointer; transition:.18s;
-  }
+  /* control bar */
+  .bar{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--paper) 88%,transparent);
+       backdrop-filter:saturate(140%) blur(9px); border-bottom:4px solid var(--ink)}
+  .bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:11px 30px}
+  .bar .id{display:flex; align-items:center; gap:9px}
+  .bar .id .chip{width:13px; height:13px; background:var(--accent); transition:background .45s var(--ease)}
+  .bar .id .txt{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+  .controls{display:flex; align-items:center; gap:9px; flex-wrap:wrap; justify-content:flex-end}
+  .seg{display:inline-flex; border:2.5px solid var(--ink); background:var(--panel)}
+  .seg button{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+              border:0; background:transparent; color:var(--muted); padding:7px 12px; cursor:pointer; transition:.16s}
   .seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+  #lens button[data-lens="industry"][aria-pressed="true"]{background:#e5352b; color:#fff}
+  #lens button[data-lens="research"][aria-pressed="true"]{background:#1e52a8; color:#fff}
   .seg button:hover:not([aria-pressed="true"]){color:var(--ink)}
-  .icon-btn{
-    font-family:var(--mono); font-size:13px; border:1px solid var(--line); background:var(--card);
-    color:var(--muted); width:34px; height:32px; border-radius:8px; cursor:pointer; transition:.18s;
-  }
-  .icon-btn:hover{color:var(--ink); border-color:var(--muted)}
+  .icon-btn{font-family:var(--mono); font-size:13px; border:2.5px solid var(--ink); background:var(--panel);
+            color:var(--muted); width:36px; height:34px; cursor:pointer; transition:.16s}
+  .icon-btn:hover{color:var(--ink)}
 
-  /* ---- masthead ---- */
-  header.mast{padding:64px 0 30px}
-  .kicker{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 18px}
-  h1{
-    font-family:var(--serif); font-weight:600; letter-spacing:-.01em; line-height:1.02;
-    font-size:clamp(42px,8vw,86px); margin:0 0 8px;
-  }
-  .role{font-family:var(--serif); font-style:italic; font-size:clamp(19px,3.2vw,26px); color:var(--muted); margin:0 0 26px}
-  .lede{max-width:46ch; font-size:19px; color:var(--ink); margin:0}
-  .lede .hl{color:var(--accent); font-style:italic; font-family:var(--serif)}
-  .meta-row{display:flex; gap:22px; flex-wrap:wrap; margin-top:26px; font-family:var(--mono); font-size:12.5px; letter-spacing:.04em}
-  .meta-row a{color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; transition:.18s}
-  .meta-row a:hover{color:var(--accent); border-color:var(--accent)}
+  /* ── compact hero ── */
+  .hero .wrap{padding-top:46px; padding-bottom:34px}
+  .hero-id{display:flex; align-items:center; gap:16px}
+  .avatar{width:56px; height:56px; border-radius:50%; background:var(--accent); flex:0 0 auto; overflow:hidden;
+          box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--accent); transition:background .45s var(--ease), box-shadow .45s var(--ease)}
+  .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+  .name{font-family:var(--sans); font-weight:800; font-size:clamp(28px,4.6vw,44px); letter-spacing:-.02em; line-height:1; margin:0}
+  .title{font-family:var(--mono); font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:7px 0 0}
+  .hero-desc{max-width:56ch; font-size:19px; color:var(--ink); margin:22px 0 0; line-height:1.5}
+  .hero-desc .hl{font-weight:700; box-shadow:inset 0 -.42em 0 color-mix(in srgb,var(--accent) 42%,transparent); transition:box-shadow .45s var(--ease)}
+  .hero-actions{display:flex; gap:9px; flex-wrap:wrap; margin-top:22px}
 
-  .rule{height:1px; background:var(--line); margin:8px 0 0}
+  /* action buttons (shared) */
+  .act{font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+       text-decoration:none; padding:9px 13px; border:2.5px solid var(--ink); transition:.16s; display:inline-flex; align-items:center; gap:6px; cursor:pointer}
+  .act::after{content:"↗"; font-size:10px; opacity:.7}
+  .act.filled{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .act.filled:hover{filter:brightness(1.09)}
+  .act.outline{color:var(--ink); background:transparent}
+  .act.outline:hover{background:var(--ink); color:var(--paper)}
+  .act.muted{color:var(--faint); border:2.5px dashed var(--line)}
+  .act.muted::after{content:""}
 
-  /* ---- section heading ---- */
-  .sec-head{display:flex; align-items:baseline; justify-content:space-between; margin:54px 0 6px}
-  .sec-head h2{font-family:var(--serif); font-weight:600; font-size:15px; letter-spacing:.02em; margin:0; text-transform:uppercase; letter-spacing:.14em}
-  .sec-head .count{font-family:var(--mono); font-size:12px; color:var(--faint)}
-  .lens-note{font-family:var(--mono); font-size:12px; color:var(--faint); margin:2px 0 0}
+  /* stats */
+  .stats{display:flex; flex-wrap:wrap; margin-top:26px; border:3px solid var(--ink)}
+  .stat{flex:1 1 0; min-width:130px; padding:15px 18px; border-right:3px solid var(--ink)}
+  .stat:last-child{border-right:0}
+  .stat .v{font-family:var(--sans); font-weight:800; font-size:27px; letter-spacing:-.02em; line-height:1}
+  .stat .l{font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); margin-top:7px}
 
-  /* ---- project rows ---- */
-  .proj{
-    display:grid; grid-template-columns:56px 1fr; gap:8px 20px;
-    padding:30px 0; border-top:1px solid var(--line);
-    align-items:start;
-  }
-  .proj:first-of-type{border-top:1px solid var(--ink)}
-  .num{font-family:var(--mono); font-size:13px; color:var(--faint); padding-top:8px}
+  /* split accent bar */
+  .splitbar{display:flex; height:18px}
+  .splitbar .a{flex:0 0 72%; background:var(--accent); transition:background .45s var(--ease)}
+  .splitbar .b{flex:1; background:var(--ink)}
+
+  /* section head */
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin:58px 0 4px}
+  .sec-head h2{font-family:var(--sans); font-weight:800; text-transform:uppercase; letter-spacing:.01em;
+               font-size:clamp(20px,3.6vw,30px); margin:0}
+  .sec-head .count{font-family:var(--mono); font-size:13px; color:var(--faint); margin-left:auto}
+  .lens-note{font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.02em; margin:6px 0 0; max-width:72ch}
+
+  .list-wrap{position:relative; margin-top:26px; padding-left:30px}
+  .list-wrap > #featured-list, .list-wrap > #selected-list{position:relative; z-index:1}
+  .spine{position:absolute; left:0; top:0; bottom:0; width:10px; background:var(--yellow); transform-origin:top; z-index:1}
+
+  .proj{display:grid; grid-template-columns:64px 1fr; gap:6px 22px; padding:30px 0; border-top:4px solid var(--ink); align-items:start}
+  .proj:first-child{border-top:none}
+  .proj-rail{display:flex; flex-direction:column; gap:11px; padding-top:5px}
+  .proj-rail .num{font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--muted)}
+  .proj-rail .sq{width:18px; height:18px; background:var(--accent); transition:background .45s var(--ease)}
+  .proj.selected .proj-rail .sq{width:12px; height:12px; background:var(--yellow)}
   .body{min-width:0}
   .ptop{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap}
-  .ptitle{font-family:var(--serif); font-weight:600; font-size:clamp(24px,3.6vw,32px); line-height:1.1; letter-spacing:-.01em; margin:0}
-  .year{font-family:var(--mono); font-size:12.5px; color:var(--faint); white-space:nowrap}
-  .line{font-family:var(--serif); font-style:italic; font-size:19px; color:var(--accent); margin:8px 0 0}
-  .blurb{color:var(--muted); margin:12px 0 0; max-width:64ch}
-  .tags{display:flex; flex-wrap:wrap; gap:7px; margin:16px 0 0}
-  .tag{font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:3px 10px}
-  .links{display:flex; flex-wrap:wrap; gap:18px; margin:16px 0 0; font-family:var(--mono); font-size:12.5px; letter-spacing:.04em}
-  .links a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px; transition:.18s}
-  .links a:hover{color:var(--accent)}
-  .links a::after{content:" ↗"; color:var(--faint); font-size:11px}
-  .links .lock{color:var(--faint); border-bottom:1px dotted var(--line)}
-  .links .lock::after{content:" · private"}
+  .ptitle{font-family:var(--sans); font-weight:700; line-height:1.08; letter-spacing:-.015em; margin:0}
+  .proj.featured .ptitle{font-size:clamp(25px,3.6vw,34px)}
+  .proj.selected .ptitle{font-size:clamp(20px,2.7vw,25px)}
+  .year{font-family:var(--mono); font-size:12px; color:var(--faint); white-space:nowrap}
+  .line{font-weight:600; font-size:18px; color:var(--accent); margin:9px 0 0; line-height:1.34; transition:color .45s var(--ease)}
+  .blurb{color:var(--muted); margin:12px 0 0; max-width:66ch; font-size:15.5px}
 
-  .figure{margin:20px 0 0; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--card)}
+  /* featured rich content */
+  .rich{display:grid; grid-template-columns:1fr 1fr; gap:16px 28px; margin:18px 0 0}
+  .rich .rk{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:5px; transition:color .45s var(--ease)}
+  .rich p{margin:0; font-size:15.5px; color:var(--ink); line-height:1.5}
+  .highlights{list-style:none; padding:0; margin:16px 0 0; display:flex; flex-direction:column; gap:6px}
+  .highlights li{font-family:var(--mono); font-size:12px; color:var(--muted); padding-left:17px; position:relative; line-height:1.45}
+  .highlights li::before{content:"\25a0"; position:absolute; left:0; top:2px; color:var(--accent); font-size:8px; transition:color .45s var(--ease)}
+
+  .tags{display:flex; flex-wrap:wrap; gap:7px; margin:18px 0 0}
+  .tag{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); border:2px solid var(--line); padding:4px 9px}
+  .links{display:flex; flex-wrap:wrap; gap:9px; margin:18px 0 0}
+
+  .figure{margin:22px 0 0; border:3px solid var(--ink); background:var(--panel)}
   .figure img{display:block; width:100%; height:auto}
-  .figure .mapframe{display:block; width:100%; height:440px; border:0; background:#e8e8e8}
-  .figure figcaption{font-family:var(--mono); font-size:11px; color:var(--faint); padding:8px 12px; border-top:1px solid var(--line2)}
-  .figure figcaption a{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--line)}
-  .figure figcaption a:hover{border-color:var(--accent)}
-  @media (max-width:620px){ .figure .mapframe{height:320px} }
+  .figure figcaption{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.03em; padding:9px 13px; border-top:3px solid var(--ink)}
+  .media-ph{margin:22px 0 0; border:3px dashed var(--line); background:var(--panel); padding:38px 20px; text-align:center}
+  .media-ph .t{font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--faint)}
 
-  /* also list */
-  .also{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2px 26px; margin:14px 0 0; border-top:1px solid var(--line)}
-  .also .row{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:13px 0; border-bottom:1px solid var(--line2)}
-  .also .n{font-family:var(--serif); font-size:16px}
-  .also .d{font-family:var(--mono); font-size:11px; color:var(--faint); text-align:right; max-width:16ch}
-  .also a{color:inherit; text-decoration:none}
+  /* also */
+  .also{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:0 30px; margin:22px 0 0; border-top:4px solid var(--ink)}
+  .also a{text-decoration:none; display:block}
+  .also .row{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:15px 0; border-bottom:2px solid var(--line)}
+  .also .n{font-weight:600; font-size:15.5px}
+  .also .d{font-family:var(--mono); font-size:10.5px; color:var(--faint); text-align:right; letter-spacing:.03em; max-width:17ch}
   .also a:hover .n{color:var(--accent)}
 
-  footer{margin:70px 0 60px; padding-top:26px; border-top:1px solid var(--ink)}
-  footer .fq{font-family:var(--serif); font-style:italic; font-size:20px; color:var(--muted); max-width:40ch; margin:0 0 20px}
-  footer .fl{display:flex; gap:22px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px}
-  footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px}
-  footer a:hover{color:var(--accent); border-color:var(--accent)}
-  .colophon{font-family:var(--mono); font-size:11px; color:var(--faint); margin-top:26px}
+  /* footer (simple) */
+  footer .wrap{padding-top:26px; padding-bottom:56px; margin-top:66px; border-top:6px solid var(--ink)}
+  .foot-line{font-weight:600; font-size:17px; color:var(--ink); max-width:46ch; margin:0 0 22px}
+  .fl{display:flex; gap:9px; flex-wrap:wrap; margin-bottom:24px}
+  .colophon{font-family:var(--mono); font-size:11px; color:var(--faint); letter-spacing:.06em; text-transform:uppercase}
+  .colophon .mk{color:var(--accent)}
 
-  @media (max-width:620px){
+  /* decorative shape (kept: one) */
+  .shape{position:absolute; z-index:0; pointer-events:none; opacity:0; transition:opacity 1s var(--ease);
+         transform:translate3d(var(--px,0px),var(--py,0px),0); will-change:transform,opacity; background:var(--accent)}
+  .shape.in{opacity:.92}
+  .accent-square{width:110px; height:110px; right:2%; top:-46px; transform:rotate(8deg)}
+
+  /* reveal (sideways) */
+  .reveal{opacity:0; transform:translateX(-54px); transition:opacity .65s var(--ease), transform .8s var(--ease)}
+  .reveal.r{transform:translateX(54px)}
+  .reveal.in{opacity:1; transform:none}
+  .spine{opacity:0; transform:scaleY(0); transition:opacity .6s var(--ease), transform 1.1s var(--ease)}
+  .spine.in{opacity:1; transform:scaleY(1)}
+
+  @media (prefers-reduced-motion:reduce){
+    .shape,.reveal,.spine{opacity:1!important; transform:none!important; transition:none!important}
+    .shape{opacity:.92!important}
+    body{transition:none}
+  }
+  @media (max-width:640px){
     .proj{grid-template-columns:1fr; gap:2px}
-    .num{padding-top:0}
-    .lede{font-size:18px}
+    .proj-rail{flex-direction:row; align-items:center; gap:12px}
+    .rich{grid-template-columns:1fr}
+    .stat{border-right:0; border-bottom:3px solid var(--ink)}
+    .stat:last-child{border-bottom:0}
+    .accent-square{width:66px; height:66px; top:-24px}
   }
 </style>
 </head>
 <body>
+<a href="#featured" class="skip">Skip to projects</a>
 
 <div class="bar">
   <div class="wrap">
-    <div class="brand">SSA — Índice / Index</div>
+    <div class="id"><span class="chip" aria-hidden="true"></span><span class="txt">Silva Avalos · Índice</span></div>
     <div class="controls">
-      <div class="seg" id="lens" role="group" aria-label="Lens">
+      <div class="seg" id="lens" role="group" aria-label="Framing lens">
         <button data-lens="industry" aria-pressed="true">Industry</button>
         <button data-lens="research" aria-pressed="false">Research</button>
       </div>
@@ -148,270 +193,378 @@
         <button data-lang="en" aria-pressed="true">EN</button>
         <button data-lang="es" aria-pressed="false">ES</button>
       </div>
-      <button class="icon-btn" id="theme" title="Theme" aria-label="Toggle theme">◐</button>
+      <button class="icon-btn" id="theme" title="Toggle light / dark" aria-label="Toggle light or dark theme" aria-pressed="false">◐</button>
     </div>
   </div>
 </div>
 
-<div class="wrap">
-  <header class="mast">
-    <p class="kicker" id="kicker">Statistical modeling · AI systems</p>
-    <h1>Santiago<br>Silva Avalos</h1>
-    <p class="role" id="role"></p>
-    <p class="lede" id="lede"></p>
-    <div class="meta-row">
-      <a href="https://github.com/cuentadesanti" target="_blank" rel="noopener">github.com/cuentadesanti</a>
-      <a href="mailto:cuentadesanti@gmail.com">cuentadesanti@gmail.com</a>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-id">
+      <span class="avatar" aria-hidden="true"><img src="assets/photo.jpg" alt="" onerror="this.remove()"></span>
+      <div>
+        <h1 class="name">Santiago Silva Avalos</h1>
+        <p class="title" id="title">Applied Mathematician</p>
+      </div>
     </div>
-  </header>
-
-  <div class="sec-head">
-    <h2 id="sec-title">Selected Work</h2>
-    <span class="count" id="sec-count"></span>
+    <p class="hero-desc" id="lede"></p>
+    <nav class="hero-actions" id="hero-actions" aria-label="Contact and links"></nav>
+    <div class="stats" id="stats" aria-label="At a glance"></div>
   </div>
-  <p class="lens-note" id="lens-note"></p>
+</header>
 
-  <main id="list"></main>
+<div class="splitbar" aria-hidden="true"><div class="a"></div><div class="b"></div></div>
 
-  <div class="sec-head">
-    <h2 id="also-title">Also on GitHub</h2>
-  </div>
-  <div class="also" id="also"></div>
-
-  <footer>
-    <p class="fq" id="footq"></p>
-    <div class="fl">
-      <a href="https://github.com/cuentadesanti" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:cuentadesanti@gmail.com">Email</a>
+<main id="featured">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 id="featured-title">Featured Projects</h2><span class="count" id="featured-count"></span></div>
+    <p class="lens-note reveal r" id="lens-note"></p>
+    <div class="list-wrap">
+      <div class="spine" aria-hidden="true"></div>
+      <span class="shape accent-square" data-depth="26" aria-hidden="true"></span>
+      <div id="featured-list"></div>
     </div>
-    <p class="colophon" id="colophon"></p>
-  </footer>
-</div>
+
+    <div class="sec-head reveal"><h2 id="selected-title">Selected Work</h2><span class="count" id="selected-count"></span></div>
+    <div class="list-wrap" style="padding-left:0">
+      <div id="selected-list"></div>
+    </div>
+
+    <div class="sec-head reveal r"><h2 id="also-title">Also on GitHub</h2></div>
+    <div class="also reveal" id="also"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-line reveal" id="footline"></p>
+    <nav class="fl reveal r" id="foot-actions" aria-label="Contact and links"></nav>
+    <p class="colophon reveal" id="colophon"></p>
+  </div>
+</footer>
 
 <script>
-const T = {
+/* ─────────── content ─────────── */
+const UI = {
   en:{
-    role:"Applied Bayesian modeling, and the systems that put it to work.",
-    lede_industry:"I build <span class='hl'>end-to-end data & AI systems</span> — from probabilistic models to the pipelines, APIs and interfaces that ship them.",
-    lede_research:"I build <span class='hl'>generative models of messy real-world data</span> — latent structure, uncertainty, and reproducibility, from social science to genomics.",
-    sec:"Selected Work", also:"Also on GitHub",
-    note_industry:"Viewing as ‘Industry’ — ordered and framed by product & engineering. Toggle to Research above.",
-    note_research:"Viewing as ‘Research’ — ordered and framed by method & inference. Toggle to Industry above.",
-    footq:"Two lenses on the same work. Pick the one that fits — the projects don’t change, only the framing.",
-    colophon:"Hand-built. No template, no framework. Set in Iowan Old Style."
+    desc:{industry:"I build <span class='hl'>end-to-end data &amp; AI systems</span> — models, the pipelines that run them, and the interfaces that ship them.",
+          research:"I build <span class='hl'>generative models of messy real-world data</span> — latent structure, uncertainty, and reproducibility."},
+    featured:"Featured Projects", selected:"Selected Work", also:"Also on GitHub",
+    note:{industry:"Viewing as <b>Industry</b> — ordered and framed by product &amp; engineering, accent in red. Switch to Research above.",
+          research:"Viewing as <b>Research</b> — ordered and framed by method &amp; inference, accent in blue. Switch to Industry above."},
+    built:"What I built", result:"Result", highlights:"Technical highlights",
+    footline:"Probabilistic models and the systems that ship them — from Mexico City.",
+    colophon:"Bauhaus ■ Ed. 2026 · Set in Geist.",
+    openmap:"open full map", soon:"Demo video — coming soon",
+    act:{Repository:"Repository", Paper:"Paper", Video:"Video", Live:"Live", Demo:"Demo", Private:"Private — case study"},
+    contact:{cv:"CV", github:"GitHub", linkedin:"LinkedIn", email:"Email"}
   },
   es:{
-    role:"Modelado bayesiano aplicado, y los sistemas que lo ponen a trabajar.",
-    lede_industry:"Construyo <span class='hl'>sistemas de datos e IA de punta a punta</span> — del modelo probabilístico a los pipelines, APIs e interfaces que lo entregan.",
-    lede_research:"Construyo <span class='hl'>modelos generativos de datos reales y sucios</span> — estructura latente, incertidumbre y reproducibilidad, de la ciencia social a la genómica.",
-    sec:"Trabajo seleccionado", also:"También en GitHub",
-    note_industry:"Vista ‘Industria’ — ordenado y encuadrado por producto e ingeniería. Cambia a Research arriba.",
-    note_research:"Vista ‘Research’ — ordenado y encuadrado por método e inferencia. Cambia a Industria arriba.",
-    footq:"Dos lentes sobre el mismo trabajo. Elige la que te sirva — los proyectos no cambian, solo el encuadre.",
-    colophon:"Hecho a mano. Sin plantilla ni framework. Compuesto en Iowan Old Style."
+    desc:{industry:"Construyo <span class='hl'>sistemas de datos e IA de punta a punta</span> — modelos, los pipelines que los corren y las interfaces que los entregan.",
+          research:"Construyo <span class='hl'>modelos generativos de datos reales y sucios</span> — estructura latente, incertidumbre y reproducibilidad."},
+    featured:"Proyectos destacados", selected:"Trabajo seleccionado", also:"También en GitHub",
+    note:{industry:"Vista <b>Industria</b> — ordenado y encuadrado por producto e ingeniería, acento en rojo. Cambia a Research arriba.",
+          research:"Vista <b>Research</b> — ordenado y encuadrado por método e inferencia, acento en azul. Cambia a Industria arriba."},
+    built:"Qué construí", result:"Resultado", highlights:"Highlights técnicos",
+    footline:"Modelos probabilísticos y los sistemas que los entregan — desde la Ciudad de México.",
+    colophon:"Bauhaus ■ Ed. 2026 · Compuesto en Geist.",
+    openmap:"abrir mapa completo", soon:"Video demo — próximamente",
+    act:{Repository:"Repositorio", Paper:"Paper", Video:"Video", Live:"En vivo", Demo:"Demo", Private:"Privado — case study"},
+    contact:{cv:"CV", github:"GitHub", linkedin:"LinkedIn", email:"Email"}
   }
 };
 
+const STATS = [
+  {v:"22", l:{en:"Repositories", es:"Repositorios"}},
+  {v:"2",  l:{en:"Working papers", es:"Working papers"}},
+  {v:"7",  l:{en:"Selected projects", es:"Proyectos"}},
+  {v:"EN·ES", l:{en:"Bilingual", es:"Bilingüe"}}
+];
+
+const CONTACT = [
+  {k:"cv", cls:"filled", href:"assets/cv.pdf"},
+  {k:"github", cls:"outline", href:"https://github.com/cuentadesanti"},
+  {k:"linkedin", cls:"outline", href:"https://www.linkedin.com/in/santiago-silva-avalos"},
+  {k:"email", cls:"outline", href:"mailto:cuentadesanti@gmail.com"}
+];
+
 const P = [
   {
-    title:"Marginación vs. Poverty — municipal latent space",
-    year:"2026", order:{industry:5, research:1},
+    featured:true, title:"Poverty × Marginación — municipal latent space", year:"2026",
+    order:{industry:5, research:1},
     fig:"assets/pobreza.png",
-    figcap:{en:"Latent material-deprivation axis, 2,469 Mexican municipalities (2020).", es:"Eje latente de privación material, 2,469 municipios de México (2020)."},
-    line:{
-      en:{industry:"An end-to-end probabilistic pipeline from official census tables to a fitted, uncertainty-aware latent model.",
-          research:"A generative model reconciling two official measurements as noisy views of one deprivation phenomenon."},
-      es:{industry:"Pipeline probabilístico de punta a punta: de las tablas censales oficiales a un modelo latente ajustado con incertidumbre.",
-          research:"Modelo generativo que reconcilia dos mediciones oficiales como vistas ruidosas de un mismo fenómeno de privación."}
-    },
-    blurb:{
-      en:"A GLLVM latent space of municipal deprivation integrating CONAPO marginación and CONEVAL multidimensional poverty (Mexico 2020). Separates common dimensions, method effects and spatial (ICAR) structure — showing territorial inequality operates at two scales, roughly half between states and half within.",
-      es:"Espacio latente GLLVM de privación municipal que integra la marginación de CONAPO y la pobreza multidimensional de CONEVAL (México 2020). Separa dimensiones comunes, efectos de método y estructura espacial (ICAR) — mostrando que la desigualdad territorial opera en dos escalas, ~mitad entre estados y mitad dentro."
-    },
+    alt:{en:"Map of Mexico shaded by a latent material-deprivation axis across municipalities.",
+         es:"Mapa de México sombreado por un eje latente de privación material por municipios."},
+    figcap:{en:"Latent material-deprivation axis — 2,469 Mexican municipalities (2020).",
+            es:"Eje latente de privación material — 2,469 municipios de México (2020)."},
+    line:{en:{industry:"Uncertainty-aware pipeline from official census data to municipal deprivation estimates.",
+              research:"Bayesian latent-variable model of municipal deprivation across Mexico."},
+          es:{industry:"Pipeline con incertidumbre: de los datos censales oficiales a estimaciones de privación municipal.",
+              research:"Modelo bayesiano de variable latente de la privación municipal en México."}},
+    built:{en:"A generative latent-variable model fusing two official 2020 measurements — CONAPO marginación and CONEVAL multidimensional poverty — into one municipal deprivation space.",
+           es:"Un modelo generativo de variable latente que fusiona dos mediciones oficiales de 2020 — marginación de CONAPO y pobreza multidimensional de CONEVAL — en un mismo espacio de privación municipal."},
+    result:{en:"Territorial inequality splits into two scales — roughly half between states and half within — with material, educational and monetary geographies that rarely overlap.",
+            es:"La desigualdad territorial se parte en dos escalas — ~mitad entre estados y mitad dentro — con geografías material, educativa y monetaria que rara vez se solapan."},
+    highlights:{en:["GLLVM latent space with method-effect and municipal deviations","Spatial ICAR contiguity graph over 2,469 municipalities","Explicit posterior uncertainty; measurement DAG"],
+                es:["Espacio latente GLLVM con efectos de método y desviaciones municipales","Grafo espacial de contigüidad ICAR sobre 2,469 municipios","Incertidumbre posterior explícita; DAG de medición"]},
     tags:["GLLVM","latent variables","Bayesian","spatial / ICAR","Python · R"],
-    links:[{t:"Repository",h:"https://github.com/cuentadesanti/pobreza-marginacion"},{t:"Manuscript",h:"https://github.com/cuentadesanti/pobreza-marginacion/blob/main/paper/manuscrito.md"}]
+    actions:[{type:"Repository", href:"https://github.com/cuentadesanti/pobreza-marginacion"},
+             {type:"Paper", href:"https://github.com/cuentadesanti/pobreza-marginacion/blob/main/paper/manuscrito.md"}]
   },
   {
-    title:"CD4⁺ T-cell Regulator Atlas — Perturb-seq",
-    year:"2026", order:{industry:2, research:2},
+    featured:true, title:"CD4⁺ T-cell Regulator Atlas — Perturb-seq", year:"2026",
+    order:{industry:2, research:2},
     fig:"assets/perturbseq.png",
-    figcap:{en:"Operator modules — flagship figure, empirical regulatory operator.", es:"Módulos del operador — figura insignia del operador regulatorio empírico."},
-    line:{
-      en:{industry:"A memory-aware bioinformatics system that runs its full core from 15 MB of CSVs and slices a 1.8 TB dataset from S3 without downloading it.",
-          research:"Empirical-Bayes ranking of robust regulators from a genome-scale CRISPRi screen — large, reproducible effects with explicit uncertainty."},
-      es:{industry:"Sistema de bioinformática consciente de memoria: corre su núcleo completo desde 15 MB de CSVs y rebana un dataset de 1.8 TB en S3 sin descargarlo.",
-          research:"Ranking empirical-Bayes de reguladores robustos en un screen CRISPRi a escala genómica — efectos grandes y reproducibles con incertidumbre explícita."}
-    },
-    blurb:{
-      en:"Turns a genome-scale CD4⁺ T-cell Perturb-seq screen into three explorable objects — robust regulators, reproducibility audits, and transcriptional programs. Submission to ‘Built with Claude: Life Sciences’.",
-      es:"Convierte un screen Perturb-seq de células T CD4⁺ a escala genómica en tres objetos explorables — reguladores robustos, auditorías de reproducibilidad y programas transcriptómicos. Submission a ‘Built with Claude: Life Sciences’."
-    },
+    alt:{en:"Heatmap of operator modules over CD4+ T-cell regulatory programs.",
+         es:"Mapa de calor de módulos del operador sobre programas regulatorios de células T CD4+."},
+    figcap:{en:"Operator modules — flagship figure of the empirical regulatory operator.",
+            es:"Módulos del operador — figura insignia del operador regulatorio empírico."},
+    line:{en:{industry:"Laptop-scale bioinformatics over a 1.8 TB CRISPRi atlas.",
+              research:"Empirical-Bayes atlas of robust CD4⁺ T-cell regulators."},
+          es:{industry:"Bioinformática a escala de laptop sobre un atlas CRISPRi de 1.8 TB.",
+              research:"Atlas empirical-Bayes de reguladores robustos de células T CD4⁺."}},
+    built:{en:"A quality-aware pipeline that ranks robust regulators of CD4⁺ T-cell programs from a genome-scale CRISPRi Perturb-seq screen.",
+           es:"Un pipeline consciente de calidad que rankea reguladores robustos de programas de células T CD4⁺ desde un screen Perturb-seq CRISPRi a escala genómica."},
+    result:{en:"Runs its entire core from 15 MB of CSVs and slices a 1.8 TB h5ad from S3 by-slice — no full download. Submission to ‘Built with Claude: Life Sciences’.",
+            es:"Corre su núcleo completo desde 15 MB de CSVs y rebana un h5ad de 1.8 TB en S3 por slices — sin descargarlo. Submission a ‘Built with Claude: Life Sciences’."},
+    highlights:{en:["Empirical-Bayes ranking with uncertainty, not adj-p thresholds","Reproducibility and donor-robustness audits","Empirical regulatory operator recovering gene programs"],
+                es:["Ranking empirical-Bayes con incertidumbre, no umbrales de adj-p","Auditorías de reproducibilidad y robustez por donante","Operador regulatorio empírico que recupera programas génicos"]},
     tags:["empirical Bayes","single-cell","reproducibility","S3 streaming"],
-    links:[{t:"Repository",h:"https://github.com/cuentadesanti/cd4-perturbseq-regulator-atlas"},{t:"Demo video",h:"https://youtu.be/3tu_3JmHh14"},{t:"Manuscript (PDF)",h:"https://github.com/cuentadesanti/cd4-perturbseq-regulator-atlas/blob/main/docs/CD4_operator_manuscript.pdf"}]
+    actions:[{type:"Repository", href:"https://github.com/cuentadesanti/cd4-perturbseq-regulator-atlas"},
+             {type:"Video", href:"https://youtu.be/3tu_3JmHh14"},
+             {type:"Paper", href:"https://github.com/cuentadesanti/cd4-perturbseq-regulator-atlas/blob/main/docs/CD4_operator_manuscript.pdf"}]
   },
   {
-    title:"Mauricio — self-hosted personal AI",
-    year:"2026", order:{industry:1, research:4},
-    line:{
-      en:{industry:"A self-hosted AI across voice, WhatsApp and web — shared memory, RAG, a tool loop, and a self-improvement loop that opens its own PRs.",
-          research:"An agentic architecture with full-temporality memory — supersession, expiry, audit trail — traced end-to-end and gated by eval suites."},
-      es:{industry:"IA self-hosted en voz, WhatsApp y web — memoria compartida, RAG, tool loop y un loop de auto-mejora que abre sus propios PRs.",
-          research:"Arquitectura agéntica con memoria de temporalidad completa — supersesión, expiración, audit trail — trazada de punta a punta y protegida por suites de evals."}
-    },
-    blurb:{
-      en:"A FastAPI brain behind LibreChat, a Raspberry-Pi voice satellite and WhatsApp, all sharing long-term memory (pgvector) and tools. Every LLM call traced in Langfuse; YAML evals gate each PR; a triage LLM can spawn Claude Code in a git worktree to add its own tools.",
-      es:"Un cerebro FastAPI detrás de LibreChat, un satélite de voz en Raspberry Pi y WhatsApp, compartiendo memoria de largo plazo (pgvector) y herramientas. Cada llamada al LLM trazada en Langfuse; evals YAML protegen cada PR; un LLM de triage puede lanzar Claude Code en un git worktree para agregar sus propias tools."
-    },
+    featured:true, title:"Mauricio — self-hosted personal AI", year:"2026",
+    order:{industry:1, research:4},
+    media:"soon",
+    line:{en:{industry:"Self-hosted personal AI with memory, voice, and self-written tools.",
+              research:"Auditable agent architecture with temporal memory and evaluation-gated adaptation."},
+          es:{industry:"IA personal self-hosted con memoria, voz y herramientas que se escribe sola.",
+              research:"Arquitectura de agente auditable con memoria temporal y adaptación protegida por evals."}},
+    built:{en:"A FastAPI brain behind LibreChat, a Raspberry-Pi voice satellite and WhatsApp — sharing long-term memory (pgvector), tools, and a self-improvement loop.",
+           es:"Un cerebro FastAPI detrás de LibreChat, un satélite de voz en Raspberry Pi y WhatsApp — compartiendo memoria de largo plazo (pgvector), herramientas y un loop de auto-mejora."},
+    result:{en:"Tell it to add a tool and it spawns Claude Code in a git worktree and opens its own PR — YAML evals gate every change.",
+            es:"Pídele agregar una herramienta y lanza Claude Code en un git worktree y abre su propio PR — evals YAML protegen cada cambio."},
+    highlights:{en:["Full-temporality memory: supersession, expiry, audit trail","Every LLM call traced in Langfuse","Voice: openwakeword → Deepgram → Piper over PipeWire"],
+                es:["Memoria de temporalidad completa: supersesión, expiración, audit trail","Cada llamada al LLM trazada en Langfuse","Voz: openwakeword → Deepgram → Piper sobre PipeWire"]},
     tags:["LLM systems","RAG · pgvector","agents","FastAPI","Langfuse"],
-    links:[{lock:true}]
+    actions:[{type:"Private"}]
   },
   {
-    title:"papers — a bandit recommender as an MCP server",
-    year:"2026", order:{industry:3, research:3},
-    line:{
-      en:{industry:"A paper recommender exposed as an MCP server — Thompson sampling + MMR over Semantic Scholar, arXiv and citation-graph ingestion.",
-          research:"A contextual bandit over SPECTER2 embeddings: Bayesian regression with intentional exploration and preference decay from sparse feedback."},
-      es:{industry:"Recomendador de papers expuesto como servidor MCP — Thompson sampling + MMR sobre Semantic Scholar, arXiv e ingesta de grafo de citas.",
-          research:"Bandit contextual sobre embeddings SPECTER2: regresión bayesiana con exploración intencional y decaimiento de preferencias desde feedback escaso."}
-    },
-    blurb:{
-      en:"Add papers, get personalized recommendations, give 👍/👎, repeat — the longer you use it, the better it gets. Thompson sampling explores directions it’s uncertain about; MMR keeps the top-k diverse.",
-      es:"Agrega papers, recibe recomendaciones personalizadas, da 👍/👎, repite — mientras más lo usas, mejor recomienda. Thompson sampling explora direcciones inciertas; MMR mantiene diverso el top-k."
-    },
+    featured:false, title:"papers — a bandit recommender over MCP", year:"2026",
+    order:{industry:3, research:3},
+    line:{en:{industry:"Contextual-bandit paper recommender, served as an MCP server.",
+              research:"Contextual bandit over SPECTER2 embeddings with intentional exploration."},
+          es:{industry:"Recomendador de papers con bandit contextual, servido como servidor MCP.",
+              research:"Bandit contextual sobre embeddings SPECTER2 con exploración intencional."}},
+    blurb:{en:"Add papers, give 👍/👎, repeat — it improves as you use it. Thompson sampling explores directions it’s uncertain about; MMR keeps the top-k diverse. Ingests from Semantic Scholar, arXiv and the citation graph.",
+           es:"Agrega papers, da 👍/👎, repite — mejora mientras lo usas. Thompson sampling explora direcciones inciertas; MMR mantiene diverso el top-k. Ingiere de Semantic Scholar, arXiv y el grafo de citas."},
     tags:["contextual bandits","Thompson sampling","MCP","MMR"],
-    links:[{t:"Repository",h:"https://github.com/cuentadesanti/papers"}]
+    actions:[{type:"Repository", href:"https://github.com/cuentadesanti/papers"}]
   },
   {
-    title:"Data Simulator — synthetic data from DAGs",
-    year:"2026", order:{industry:4, research:6},
-    line:{
-      en:{industry:"A full-stack visual tool (FastAPI + React 19) to build probabilistic DAGs and forward-sample synthetic datasets.",
-          research:"Author generative models as DAGs with literal, formula or lookup parameters and global / group / row scopes."},
-      es:{industry:"Herramienta visual full-stack (FastAPI + React 19) para construir DAGs probabilísticos y muestrear datasets sintéticos por forward sampling.",
-          research:"Define modelos generativos como DAGs con parámetros literales, por fórmula o lookup, y scopes global / grupo / fila."}
-    },
-    blurb:{
-      en:"Drag-and-drop probabilistic modeling: 100+ scipy distributions, dynamic parameters, cycle-checked validation, and CSV / Parquet / JSON export.",
-      es:"Modelado probabilístico drag-and-drop: 100+ distribuciones de scipy, parámetros dinámicos, validación con detección de ciclos y export a CSV / Parquet / JSON."
-    },
+    featured:false, title:"Data Simulator — synthetic data from DAGs", year:"2026",
+    order:{industry:4, research:6},
+    line:{en:{industry:"Visual full-stack builder for synthetic data from probabilistic DAGs.",
+              research:"Author generative models as DAGs with scoped, formula-driven parameters."},
+          es:{industry:"Constructor visual full-stack de datos sintéticos desde DAGs probabilísticos.",
+              research:"Define modelos generativos como DAGs con parámetros por scope y fórmula."}},
+    blurb:{en:"Drag-and-drop probabilistic modeling (FastAPI + React 19): 100+ scipy distributions, dynamic parameters, cycle-checked validation, and CSV / Parquet / JSON export.",
+           es:"Modelado probabilístico drag-and-drop (FastAPI + React 19): 100+ distribuciones de scipy, parámetros dinámicos, validación con detección de ciclos y export a CSV / Parquet / JSON."},
     tags:["FastAPI","React 19","probabilistic DAGs","scipy.stats"],
-    links:[{t:"Repository",h:"https://github.com/cuentadesanti/data-simulator"}]
+    actions:[{type:"Repository", href:"https://github.com/cuentadesanti/data-simulator"}]
   },
   {
-    title:"spend-pipe — idempotent financial ingestion",
-    year:"2026", order:{industry:6, research:7},
-    line:{
-      en:{industry:"Bank & card files → common schema → dedup → review web UI → idempotent bulk-upsert to Actual Budget.",
-          research:"A deterministic identity model (occurrence-indexed IDs + dedup hash) for reproducible transaction ingestion."},
-      es:{industry:"Archivos de banco y tarjeta → schema común → dedup → web UI de revisión → bulk-upsert idempotente a Actual Budget.",
-          research:"Modelo de identidad determinista (IDs con occurrence index + dedup hash) para ingesta reproducible de transacciones."}
-    },
-    blurb:{
-      en:"A Python ingestion pipeline with an Alembic-managed schema and a versioned artifact boundary to a Node pusher — designed so re-running a batch never double-writes.",
-      es:"Pipeline de ingesta en Python con schema gestionado por Alembic y una frontera de artefacto versionado hacia un pusher en Node — diseñado para que re-correr un batch nunca duplique escrituras."
-    },
+    featured:false, title:"spend-pipe — idempotent financial ingestion", year:"2026",
+    order:{industry:6, research:7},
+    line:{en:{industry:"Bank files → schema → dedup → review UI → idempotent upsert to Actual Budget.",
+              research:"Deterministic identity model for reproducible transaction ingestion."},
+          es:{industry:"Archivos de banco → schema → dedup → UI de revisión → upsert idempotente a Actual Budget.",
+              research:"Modelo de identidad determinista para ingesta reproducible de transacciones."}},
+    blurb:{en:"A Python ingestion pipeline with an Alembic-managed schema and a versioned artifact boundary to a Node pusher — re-running a batch never double-writes.",
+           es:"Pipeline de ingesta en Python con schema gestionado por Alembic y una frontera de artefacto versionado hacia un pusher en Node — re-correr un batch nunca duplica escrituras."},
     tags:["Python","idempotent pipelines","Alembic","SQLite · Postgres"],
-    links:[{t:"Repository",h:"https://github.com/cuentadesanti/spend-pipe"}]
+    actions:[{type:"Repository", href:"https://github.com/cuentadesanti/spend-pipe"}]
   },
   {
-    title:"Airbnb — spatial Bayesian pricing",
-    year:"2026", order:{industry:7, research:5},
-    map:"assets/airbnb-map.html",
-    figcap:{en:"Interactive — posterior seasonal price by H3 cell over Spain (M10×M11). Scroll & zoom.", es:"Interactivo — precio estacional posterior por celda H3 en España (M10×M11). Haz scroll y zoom."},
-    line:{
-      en:{industry:"A short-term-rental pricing model over 111k Spanish listings, indexed on an H3 hex grid with per-cell uncertainty.",
-          research:"A hierarchical spatial Bayesian model of log-price on a two-level H3 grid, selected by ELPD / LOO against city and global baselines."},
-      es:{industry:"Modelo de pricing de renta corta sobre 111k listings españoles, indexado en una malla hexagonal H3 con incertidumbre por celda.",
-          research:"Modelo bayesiano espacial jerárquico del log-precio sobre una malla H3 de dos niveles, seleccionado por ELPD / LOO frente a baselines de ciudad y global."}
-    },
-    blurb:{
-      en:"Inside Airbnb data for Spain (111k listings) modeled with a non-centered hierarchical structure over a two-level H3 hexagon grid (res 5/6). Compares a ladder of models by ELPD/LOO, adds a robust Student-t likelihood and seasonal multipliers, and validates with posterior predictive checks — plus a CLIP visual-feature branch on cover photos.",
-      es:"Datos de Inside Airbnb para España (111k listings) modelados con estructura jerárquica no centrada sobre una malla de hexágonos H3 de dos niveles (res 5/6). Compara una escalera de modelos por ELPD/LOO, añade verosimilitud robusta Student-t y multiplicadores estacionales, y valida con posterior predictive checks — más una rama de features visuales CLIP sobre las fotos de portada."
-    },
-    tags:["hierarchical Bayesian","spatial · H3","PyMC","ELPD / LOO","PPC"],
-    links:[{t:"Repository",h:"https://github.com/cuentadesanti/airbnb-bayesian-pricing"}]
+    featured:false, title:"Airbnb — spatial Bayesian pricing", year:"2026",
+    order:{industry:7, research:5},
+    line:{en:{industry:"Spatial Bayesian pricing over Spanish short-term rentals.",
+              research:"Hierarchical spatial model of housing prices on an H3 grid."},
+          es:{industry:"Pricing bayesiano espacial sobre rentas cortas en España.",
+              research:"Modelo espacial jerárquico de precios de vivienda sobre una malla H3."}},
+    blurb:{en:"Inside Airbnb data for Spain (111k listings) on a two-level H3 hex grid: non-centered hierarchical model, ELPD/LOO selection, robust Student-t, seasonal multipliers, and posterior predictive checks. The Live map shows posterior price per cell.",
+           es:"Datos de Inside Airbnb para España (111k listings) sobre malla hexagonal H3 de dos niveles: modelo jerárquico no centrado, selección ELPD/LOO, Student-t robusto, multiplicadores estacionales y posterior predictive checks. El mapa En vivo muestra el precio posterior por celda."},
+    tags:["hierarchical Bayesian","spatial · H3","PyMC","ELPD / LOO"],
+    actions:[{type:"Repository", href:"https://github.com/cuentadesanti/airbnb-bayesian-pricing"},
+             {type:"Live", href:"assets/airbnb-map.html"}]
   }
 ];
 
 const ALSO = [
-  {n:"inegi-client", d:{en:"INEGI data client + dashboard",es:"cliente INEGI + dashboard"}, h:"https://github.com/cuentadesanti/inegi-client"},
-  {n:"micro-business CDMX", d:{en:"R→Python port · pub. paper",es:"port R→Python · paper pub."}, h:"https://github.com/ckelling/micro_business_mexico_city"},
-  {n:"finanzas-ai", d:{en:"Actual Budget import tools",es:"tools de import a Actual Budget"}, h:"https://github.com/cuentadesanti/finanzas-ai"},
-  {n:"whatsapp-tool", d:{en:"WhatsApp automation",es:"automatización de WhatsApp"}, h:"https://github.com/cuentadesanti/whatsapp-tool"}
+  {n:"inegi-client", d:{en:"INEGI data client + dashboard", es:"cliente INEGI + dashboard"}, h:"https://github.com/cuentadesanti/inegi-client"},
+  {n:"micro-business CDMX", d:{en:"R→Python port · pub. paper", es:"port R→Python · paper pub."}, h:"https://github.com/ckelling/micro_business_mexico_city"},
+  {n:"finanzas-ai", d:{en:"Actual Budget import tools", es:"tools de import a Actual Budget"}, h:"https://github.com/cuentadesanti/finanzas-ai"},
+  {n:"whatsapp-tool", d:{en:"WhatsApp automation", es:"automatización de WhatsApp"}, h:"https://github.com/cuentadesanti/whatsapp-tool"}
 ];
 
-let state = { lang:"en", lens:"industry" };
+const ACCENT = {industry:"#e5352b", research:"#1e52a8"};
+const FILLED = new Set(["Live","Demo","Video"]);
+let state = {lang:"en", lens:"industry"};
 
-function esc(s){return s;}
+/* ─────────── render helpers ─────────── */
+function applyAccent(){ document.documentElement.style.setProperty("--accent", ACCENT[state.lens]); }
 
-function render(){
-  const t = T[state.lang], L = state.lang, X = state.lens;
-  document.documentElement.lang = L;
-  document.getElementById("role").textContent = t.role;
-  document.getElementById("lede").innerHTML = X==="industry"? t.lede_industry : t.lede_research;
-  document.getElementById("sec-title").textContent = t.sec;
-  document.getElementById("also-title").textContent = t.also;
-  document.getElementById("lens-note").textContent = X==="industry"? t.note_industry : t.note_research;
-  document.getElementById("footq").textContent = t.footq;
-  document.getElementById("colophon").textContent = t.colophon;
+function renderHero(){
+  const u = UI[state.lang], X = state.lens;
+  document.getElementById("lede").innerHTML = u.desc[X];
+  document.getElementById("hero-actions").innerHTML = renderContact(CONTACT);
+  document.getElementById("foot-actions").innerHTML = renderContact(CONTACT);
+  document.getElementById("footline").textContent = u.footline;
+  document.getElementById("colophon").innerHTML = u.colophon.replace("■","<span class='mk'>■</span>");
+}
 
-  const items = P.slice().sort((a,b)=>a.order[X]-b.order[X]);
-  document.getElementById("sec-count").textContent = String(items.length).padStart(2,"0");
+function renderContact(items){
+  const c = UI[state.lang].contact;
+  return items.map(i=>`<a class="act ${i.cls}" href="${i.href}"${i.k==="cv"?' target="_blank" rel="noopener"':""}>${c[i.k]}</a>`).join("");
+}
 
-  const linkLabel = {en:{pending:"Repository (publishing soon)",priv:"Private — case study"},
-                     es:{pending:"Repositorio (por publicar)",priv:"Privado — case study"}};
+function renderStats(){
+  const L = state.lang;
+  document.getElementById("stats").innerHTML = STATS.map(s=>
+    `<div class="stat"><div class="v">${s.v}</div><div class="l">${s.l[L]}</div></div>`).join("");
+}
 
-  document.getElementById("list").innerHTML = items.map((p,i)=>{
-    const num = String(i+1).padStart(2,"0");
-    let fig = "";
-    if(p.map){
-      const cap = p.figcap[L] + (X==="research"?"":"");
-      fig = `<figure class="figure"><iframe class="mapframe" src="${p.map}" loading="lazy" title="Interactive H3 price map"></iframe><figcaption>${cap} · <a href="${p.map}" target="_blank" rel="noopener">${L==="es"?"abrir mapa completo":"open full map"} ↗</a></figcaption></figure>`;
-    } else if(p.fig){
-      fig = `<figure class="figure"><img src="${p.fig}" alt="" loading="lazy"><figcaption>${p.figcap[L]}</figcaption></figure>`;
-    }
-    const tags = p.tags.map(x=>`<span class="tag">${x}</span>`).join("");
-    const links = p.links.map(x=>{
-      if(x.lock) return `<span class="lock">${linkLabel[L].priv}</span>`;
-      const label = x.pending? linkLabel[L].pending : x.t;
-      return `<a href="${x.h}" target="_blank" rel="noopener">${label}</a>`;
-    }).join("");
-    return `<article class="proj">
-      <div class="num">${num} / ${String(items.length).padStart(2,"0")}</div>
+function renderActions(actions){
+  const a = UI[state.lang].act;
+  return actions.map(x=>{
+    if(x.type==="Private") return `<span class="act muted">${a.Private}</span>`;
+    const cls = FILLED.has(x.type) ? "filled" : "outline";
+    return `<a class="act ${cls}" href="${x.href}" target="_blank" rel="noopener">${a[x.type]}</a>`;
+  }).join("");
+}
+
+function renderFigure(p, L){
+  if(p.media==="soon"){
+    return `<div class="media-ph"><span class="t">${UI[L].soon}</span></div>
+      <!-- Highest-impact future add: a 15s demo GIF/video for Mauricio. Drop it here, replacing .media-ph. -->`;
+  }
+  if(p.fig){
+    return `<figure class="figure"><img src="${p.fig}" alt="${p.alt[L]}" loading="lazy">
+      <figcaption>${p.figcap[L]}</figcaption></figure>`;
+  }
+  return "";
+}
+
+function renderProject(p, i, N, L, X){
+  const num = `${String(i+1).padStart(2,"0")} / ${N}`;
+  const cls = p.featured ? "featured" : "selected";
+  const tags = p.tags.map(t=>`<span class="tag">${t}</span>`).join("");
+  const links = renderActions(p.actions);
+  let mid = "";
+  if(p.featured){
+    const u = UI[L];
+    const hi = p.highlights[L].map(h=>`<li>${h}</li>`).join("");
+    mid = `<div class="rich">
+        <div><span class="rk">${u.built}</span><p>${p.built[L]}</p></div>
+        <div><span class="rk">${u.result}</span><p>${p.result[L]}</p></div>
+      </div>
+      <ul class="highlights">${hi}</ul>`;
+  } else {
+    mid = `<p class="blurb">${p.blurb[L]}</p>`;
+  }
+  const dir = i%2 ? " r" : "";
+  return `<article class="proj ${cls} reveal${dir}">
+      <div class="proj-rail"><span class="num">${num}</span><span class="sq" aria-hidden="true"></span></div>
       <div class="body">
         <div class="ptop"><h3 class="ptitle">${p.title}</h3><span class="year">${p.year}</span></div>
         <p class="line">${p.line[L][X]}</p>
-        <p class="blurb">${p.blurb[L]}</p>
+        ${mid}
         <div class="tags">${tags}</div>
         <div class="links">${links}</div>
-        ${fig}
+        ${renderFigure(p, L)}
       </div>
     </article>`;
-  }).join("");
+}
 
+function renderProjectSection(featured){
+  const L = state.lang, X = state.lens;
+  const items = P.filter(p=>p.featured===featured).sort((a,b)=>a.order[X]-b.order[X]);
+  const N = String(items.length).padStart(2,"0");
+  const html = items.map((p,i)=>renderProject(p,i,N,L,X)).join("");
+  document.getElementById(featured?"featured-list":"selected-list").innerHTML = html;
+  document.getElementById(featured?"featured-count":"selected-count").textContent = N;
+}
+
+function renderAlso(){
+  const L = state.lang;
   document.getElementById("also").innerHTML = ALSO.map(a=>
     `<a href="${a.h}" target="_blank" rel="noopener"><div class="row"><span class="n">${a.n}</span><span class="d">${a.d[L]}</span></div></a>`
   ).join("");
 }
 
-// controls
+function render(){
+  const u = UI[state.lang], X = state.lens;
+  document.documentElement.lang = state.lang;
+  applyAccent();
+  document.getElementById("featured-title").textContent = u.featured;
+  document.getElementById("selected-title").textContent = u.selected;
+  document.getElementById("also-title").textContent = u.also;
+  document.getElementById("lens-note").innerHTML = u.note[X];
+  renderHero(); renderStats();
+  renderProjectSection(true); renderProjectSection(false);
+  renderAlso();
+  observeReveal();
+}
+
+/* ─────────── motion ─────────── */
+let io;
+function observeReveal(){
+  if(io) io.disconnect();
+  io = new IntersectionObserver((es)=>es.forEach(e=>e.target.classList.toggle("in", e.isIntersecting)),
+    {threshold:0.14, rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll(".reveal,.shape,.spine").forEach(t=>io.observe(t));
+}
+
+const reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+if(!reduce){
+  let mx=0,my=0,tx=0,ty=0,ticking=false;
+  window.addEventListener("pointermove",(e)=>{
+    mx=e.clientX/window.innerWidth-0.5; my=e.clientY/window.innerHeight-0.5;
+    if(!ticking){ ticking=true; requestAnimationFrame(loop); }
+  },{passive:true});
+  function loop(){
+    tx+=(mx-tx)*0.09; ty+=(my-ty)*0.09;
+    document.querySelectorAll(".shape").forEach(s=>{
+      const d=+s.dataset.depth||0;
+      s.style.setProperty("--px",(tx*d).toFixed(2)+"px");
+      s.style.setProperty("--py",(ty*d).toFixed(2)+"px");
+    });
+    if(Math.abs(mx-tx)>0.001||Math.abs(my-ty)>0.001){ requestAnimationFrame(loop); } else { ticking=false; }
+  }
+}
+
+/* ─────────── controls ─────────── */
 document.getElementById("lens").addEventListener("click",e=>{
   const b=e.target.closest("button"); if(!b) return;
   state.lens=b.dataset.lens;
-  document.querySelectorAll("#lens button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  document.querySelectorAll("#lens button").forEach(x=>x.setAttribute("aria-pressed", x===b));
   render();
 });
 document.getElementById("lang").addEventListener("click",e=>{
   const b=e.target.closest("button"); if(!b) return;
   state.lang=b.dataset.lang;
-  document.querySelectorAll("#lang button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  document.querySelectorAll("#lang button").forEach(x=>x.setAttribute("aria-pressed", x===b));
   render();
 });
 document.getElementById("theme").addEventListener("click",()=>{
   const cur=document.documentElement.getAttribute("data-theme");
   const sysDark=window.matchMedia("(prefers-color-scheme:dark)").matches;
-  const now = cur? cur : (sysDark?"dark":"light");
-  document.documentElement.setAttribute("data-theme", now==="dark"?"light":"dark");
+  const now = cur ? cur : (sysDark?"dark":"light");
+  const next = now==="dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  document.getElementById("theme").setAttribute("aria-pressed", next==="dark");
 });
 
 render();
