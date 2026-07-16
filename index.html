@@ -106,7 +106,11 @@
 
   .figure{margin:20px 0 0; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--card)}
   .figure img{display:block; width:100%; height:auto}
+  .figure .mapframe{display:block; width:100%; height:440px; border:0; background:#e8e8e8}
   .figure figcaption{font-family:var(--mono); font-size:11px; color:var(--faint); padding:8px 12px; border-top:1px solid var(--line2)}
+  .figure figcaption a{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--line)}
+  .figure figcaption a:hover{border-color:var(--accent)}
+  @media (max-width:620px){ .figure .mapframe{height:320px} }
 
   /* also list */
   .also{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2px 26px; margin:14px 0 0; border-top:1px solid var(--line)}
@@ -312,8 +316,8 @@ const P = [
   {
     title:"Airbnb — spatial Bayesian pricing",
     year:"2026", order:{industry:7, research:5},
-    fig:"assets/airbnb-hexmap.png",
-    figcap:{en:"Posterior median nightly price by H3 cell — 82 cells across Spain (res 5).", es:"Precio mediano posterior por noche por celda H3 — 82 celdas en España (res 5)."},
+    map:"assets/airbnb-map.html",
+    figcap:{en:"Interactive — posterior seasonal price by H3 cell over Spain (M10×M11). Scroll & zoom.", es:"Interactivo — precio estacional posterior por celda H3 en España (M10×M11). Haz scroll y zoom."},
     line:{
       en:{industry:"A short-term-rental pricing model over 111k Spanish listings, indexed on an H3 hex grid with per-cell uncertainty.",
           research:"A hierarchical spatial Bayesian model of log-price on a two-level H3 grid, selected by ELPD / LOO against city and global baselines."},
@@ -333,8 +337,7 @@ const ALSO = [
   {n:"inegi-client", d:{en:"INEGI data client + dashboard",es:"cliente INEGI + dashboard"}, h:"https://github.com/cuentadesanti/inegi-client"},
   {n:"micro-business CDMX", d:{en:"R→Python port · pub. paper",es:"port R→Python · paper pub."}, h:"https://github.com/ckelling/micro_business_mexico_city"},
   {n:"finanzas-ai", d:{en:"Actual Budget import tools",es:"tools de import a Actual Budget"}, h:"https://github.com/cuentadesanti/finanzas-ai"},
-  {n:"whatsapp-tool", d:{en:"WhatsApp automation",es:"automatización de WhatsApp"}, h:"https://github.com/cuentadesanti/whatsapp-tool"},
-  {n:"wordcloud-uady", d:{en:"survey word clouds",es:"nubes de palabras de encuesta"}, h:"https://github.com/cuentadesanti/wordcloud-uady"}
+  {n:"whatsapp-tool", d:{en:"WhatsApp automation",es:"automatización de WhatsApp"}, h:"https://github.com/cuentadesanti/whatsapp-tool"}
 ];
 
 let state = { lang:"en", lens:"industry" };
@@ -360,7 +363,13 @@ function render(){
 
   document.getElementById("list").innerHTML = items.map((p,i)=>{
     const num = String(i+1).padStart(2,"0");
-    const fig = p.fig? `<figure class="figure"><img src="${p.fig}" alt="" loading="lazy"><figcaption>${p.figcap[L]}</figcaption></figure>`:"";
+    let fig = "";
+    if(p.map){
+      const cap = p.figcap[L] + (X==="research"?"":"");
+      fig = `<figure class="figure"><iframe class="mapframe" src="${p.map}" loading="lazy" title="Interactive H3 price map"></iframe><figcaption>${cap} · <a href="${p.map}" target="_blank" rel="noopener">${L==="es"?"abrir mapa completo":"open full map"} ↗</a></figcaption></figure>`;
+    } else if(p.fig){
+      fig = `<figure class="figure"><img src="${p.fig}" alt="" loading="lazy"><figcaption>${p.figcap[L]}</figcaption></figure>`;
+    }
     const tags = p.tags.map(x=>`<span class="tag">${x}</span>`).join("");
     const links = p.links.map(x=>{
       if(x.lock) return `<span class="lock">${linkLabel[L].priv}</span>`;
