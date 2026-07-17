@@ -59,10 +59,8 @@
   /* ── compact hero ── */
   .hero .wrap{padding-top:46px; padding-bottom:34px}
   .hero-id{display:flex; align-items:center; gap:16px}
-  .avatar{position:relative; width:62px; height:62px; flex:0 0 auto; overflow:visible}
-  .avatar-disc{position:absolute; inset:0; border-radius:50%; background:var(--accent);
-               box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--accent); transition:background .45s var(--ease), box-shadow .45s var(--ease)}
-  .avatar-ph{position:absolute; left:50%; bottom:-1px; transform:translateX(-50%); width:82px; height:auto; z-index:1; pointer-events:none}
+  .avatar{width:56px; height:56px; border-radius:50%; background:var(--accent); flex:0 0 auto;
+          box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--accent); transition:background .45s var(--ease), box-shadow .45s var(--ease)}
   .name{font-family:var(--sans); font-weight:800; font-size:clamp(28px,4.6vw,44px); letter-spacing:-.02em; line-height:1; margin:0}
   .title{font-family:var(--mono); font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:7px 0 0}
   .hero-desc{max-width:56ch; font-size:19px; color:var(--ink); margin:22px 0 0; line-height:1.5}
@@ -234,7 +232,7 @@
 <header class="hero">
   <div class="wrap">
     <div class="hero-id">
-      <span class="avatar" aria-hidden="true"><span class="avatar-disc"></span><img class="avatar-ph" src="assets/photo.png?v=2" alt="" onerror="this.remove()"></span>
+      <span class="avatar" aria-hidden="true"></span>
       <div>
         <h1 class="name">Santiago Silva Avalos</h1>
         <p class="title" id="title">Applied Mathematician</p>
