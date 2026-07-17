@@ -123,7 +123,7 @@
          transition:border-color .45s var(--ease), background .45s var(--ease)}
   .award-ic{position:relative; width:46px; height:27px; flex:0 0 auto; transition:transform .26s cubic-bezier(.34,1.56,.64,1)}
   .award-ic .mi{position:absolute; left:0; bottom:0; width:46px; height:auto; transition:opacity .12s ease}
-  .award-ic .mi-jump{opacity:0}
+  .award-ic .mi-jump{opacity:0; width:55px; left:-5px}  /* scaled so head↔feet match idle (goggles 243 vs 204px) */
   .award:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
   .award:hover .award-ic{transform:translateY(-9px)}
   .award:hover .mi-idle{opacity:0}
@@ -293,8 +293,8 @@ const UI = {
 
 const STATS = [
   {v:"22", l:{en:"Repositories", es:"Repositorios"}},
+  {v:"1",  l:{en:"Published paper", es:"Paper publicado"}},
   {v:"2",  l:{en:"Working papers", es:"Working papers"}},
-  {v:"7",  l:{en:"Selected projects", es:"Proyectos"}},
   {v:"EN·ES", l:{en:"Bilingual", es:"Bilingüe"}}
 ];
 
@@ -421,6 +421,18 @@ const P = [
     tags:["hierarchical Bayesian","spatial · H3","PyMC","ELPD / LOO"],
     actions:[{type:"Repository", href:"https://github.com/cuentadesanti/airbnb-bayesian-pricing"},
              {type:"Live", href:"assets/airbnb-map.html"}]
+  },
+  {
+    featured:false, title:"Eating Disorders Among College Students in Mexico", year:"2025",
+    order:{industry:8, research:4},
+    line:{en:{industry:"Peer-reviewed epidemiology of eating disorders across 610 Mexican college students.",
+              research:"Co-authored study modeling eating-disorder symptomatology with logistic regression."},
+          es:{industry:"Epidemiología peer-reviewed de trastornos alimentarios en 610 estudiantes universitarios de México.",
+              research:"Estudio (coautor) que modela la sintomatología de trastornos alimentarios con regresión logística."}},
+    blurb:{en:"Published in the Int. J. of Environmental Research and Public Health (IJERPH · MDPI, 2025). A cross-sectional study of 610 students at UADY and UNAM; linear and multiple logistic regressions identify predictors of ED symptomatology — body dissatisfaction and anxiety. I am a co-author (Dept. of Mathematics, ITAM).",
+           es:"Publicado en el Int. J. of Environmental Research and Public Health (IJERPH · MDPI, 2025). Estudio transversal de 610 estudiantes de UADY y UNAM; regresiones lineales y logísticas múltiples identifican predictores de sintomatología de TCA — insatisfacción corporal y ansiedad. Soy coautor (Depto. de Matemáticas, ITAM)."},
+    tags:["co-author","peer-reviewed","logistic regression","IJERPH · MDPI"],
+    actions:[{type:"Paper", href:"https://doi.org/10.3390/ijerph22121797"}]
   }
 ];
 
