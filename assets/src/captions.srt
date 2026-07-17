@@ -1,0 +1,35 @@
+1
+00:00:00,200 --> 00:00:02,600
+I asked for a feature it didn't have.
+
+2
+00:00:02,600 --> 00:00:04,700
+It opened the PR itself.
+
+3
+00:00:08,500 --> 00:00:12,500
+Voice satellite: wake word → STT → backend
+
+4
+00:00:15,500 --> 00:00:18,500
+memory + knowledge retrieved in parallel
+
+5
+00:00:18,500 --> 00:00:22,000
+LLM ⇄ tools loop, then TTS out
+
+6
+00:00:29,500 --> 00:00:32,500
+propose_new_tool → triage LLM
+
+7
+00:00:33,500 --> 00:00:36,500
+Claude Code runs headless — with hard constraints
+
+8
+00:00:37,000 --> 00:00:39,500
+tests pass → PR opens itself
+
+9
+00:00:39,500 --> 00:00:42,200
+a human still clicks merge
