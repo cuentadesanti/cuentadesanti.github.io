@@ -148,6 +148,21 @@
   .figure{margin:22px 0 0; border:3px solid var(--ink); background:var(--panel)}
   .figure img{display:block; width:100%; height:auto}
   .figure video.vid{display:block; width:100%; height:auto; background:#0d1117}
+  /* interactive map with click-to-interact overlay */
+  .map-fig .map-holder{position:relative}
+  .mapframe{display:block; width:100%; height:460px; border:0; background:#e8e8e8}
+  .map-holder:not(.active) .mapframe{pointer-events:none}
+  .map-overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; border:0;
+    cursor:pointer; background:color-mix(in srgb,#0d1117 14%,transparent); transition:background .18s ease}
+  .map-overlay:hover{background:color-mix(in srgb,#0d1117 22%,transparent)}
+  .map-overlay .chip{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    color:#fff; background:#14161c; border:2.5px solid #14161c; padding:11px 16px}
+  .map-holder.active .map-overlay{display:none}
+  .map-lock{position:absolute; top:10px; right:10px; display:none; align-items:center; gap:6px; cursor:pointer; z-index:5;
+    font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    color:#fff; background:#14161c; border:2.5px solid #14161c; padding:7px 11px}
+  .map-holder.active .map-lock{display:inline-flex}
+  @media (max-width:640px){ .mapframe{height:340px} }
   .figure figcaption{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.03em; padding:9px 13px; border-top:3px solid var(--ink)}
   .media-ph{margin:22px 0 0; border:3px dashed var(--line); background:var(--panel); padding:38px 20px; text-align:center}
   .media-ph .t{font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--faint)}
@@ -273,6 +288,7 @@ const UI = {
     footline:"Probabilistic models and the systems that ship them — from Mexico City.",
     colophon:"Bauhaus ■ Ed. 2026 · Set in Geist.",
     openmap:"open full map", soon:"Demo video — coming soon",
+    interact:"Click to interact", lock:"Lock map",
     act:{Repository:"Repository", Paper:"Paper", Video:"Video", Live:"Live", Demo:"Demo", Private:"Private — case study"},
     contact:{cv:"CV", github:"GitHub", linkedin:"LinkedIn", email:"Email"}
   },
@@ -286,6 +302,7 @@ const UI = {
     footline:"Modelos probabilísticos y los sistemas que los entregan — desde la Ciudad de México.",
     colophon:"Bauhaus ■ Ed. 2026 · Compuesto en Geist.",
     openmap:"abrir mapa completo", soon:"Video demo — próximamente",
+    interact:"Haz clic para interactuar", lock:"Bloquear mapa",
     act:{Repository:"Repositorio", Paper:"Paper", Video:"Video", Live:"En vivo", Demo:"Demo", Private:"Privado — case study"},
     contact:{cv:"CV", github:"GitHub", linkedin:"LinkedIn", email:"Email"}
   }
@@ -412,6 +429,9 @@ const P = [
   {
     featured:false, title:"Airbnb — spatial Bayesian pricing", year:"2026",
     order:{industry:7, research:5},
+    map:"assets/airbnb-map.html",
+    figcap:{en:"Interactive — posterior seasonal price by H3 cell across Spain (M10×M11).",
+            es:"Interactivo — precio estacional posterior por celda H3 en España (M10×M11)."},
     line:{en:{industry:"Spatial Bayesian pricing over Spanish short-term rentals.",
               research:"Hierarchical spatial model of housing prices on an H3 grid."},
           es:{industry:"Pricing bayesiano espacial sobre rentas cortas en España.",
@@ -487,6 +507,15 @@ function renderActions(actions){
 }
 
 function renderFigure(p, L){
+  if(p.map){
+    const u = UI[L];
+    return `<figure class="figure map-fig"><div class="map-holder">
+      <iframe class="mapframe" src="${p.map}" loading="lazy" title="${p.figcap[L]}"></iframe>
+      <button class="map-overlay" type="button" data-map="${p.map}">
+        <span class="chip">▶ ${u.interact}</span></button>
+      <button class="map-lock" type="button" aria-label="${u.lock}">${u.lock} ✕</button>
+    </div><figcaption>${p.figcap[L]} · <a href="${p.map}" target="_blank" rel="noopener">${u.openmap} ↗</a></figcaption></figure>`;
+  }
   if(p.video){
     return `<figure class="figure"><video class="vid" src="${p.video}" poster="${p.poster||""}"
       autoplay muted loop playsinline preload="metadata" aria-label="${p.figcap[L]}"></video>
@@ -604,6 +633,19 @@ document.getElementById("lang").addEventListener("click",e=>{
   document.querySelectorAll("#lang button").forEach(x=>x.setAttribute("aria-pressed", x===b));
   render();
 });
+// interactive-map overlay (lazy iframe stays inert until activated)
+document.addEventListener("click",(e)=>{
+  const ov = e.target.closest(".map-overlay");
+  if(ov){
+    const coarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if(coarse){ window.open(ov.dataset.map, "_blank", "noopener"); return; }
+    ov.closest(".map-holder").classList.add("active");
+    return;
+  }
+  const lk = e.target.closest(".map-lock");
+  if(lk){ lk.closest(".map-holder").classList.remove("active"); }
+});
+
 document.getElementById("theme").addEventListener("click",()=>{
   const cur=document.documentElement.getAttribute("data-theme");
   const sysDark=window.matchMedia("(prefers-color-scheme:dark)").matches;
