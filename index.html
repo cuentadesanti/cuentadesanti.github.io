@@ -117,6 +117,14 @@
   .line{font-weight:600; font-size:18px; color:var(--accent); margin:9px 0 0; line-height:1.34; transition:color .45s var(--ease)}
   .blurb{color:var(--muted); margin:12px 0 0; max-width:66ch; font-size:15.5px}
 
+  /* hackathon award badge */
+  .award{display:inline-flex; align-items:center; gap:11px; margin:14px 0 0; padding:7px 15px 7px 7px;
+         border:2.5px solid var(--accent); background:color-mix(in srgb,var(--accent) 9%,transparent); transition:border-color .45s var(--ease), background .45s var(--ease)}
+  .award-ic{width:46px; height:46px; object-fit:contain; flex:0 0 auto}
+  .award-tx{display:flex; flex-direction:column; gap:2px}
+  .award-t{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink)}
+  .award-r{font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--accent); transition:color .45s var(--ease)}
+
   /* featured rich content */
   .rich{display:grid; grid-template-columns:1fr 1fr; gap:16px 28px; margin:18px 0 0}
   .rich .rk{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:5px; transition:color .45s var(--ease)}
@@ -315,6 +323,9 @@ const P = [
   {
     featured:true, title:"CD4⁺ T-cell Regulator Atlas — Perturb-seq", year:"2026",
     order:{industry:2, research:2},
+    award:{icon:"assets/mascot.png",
+           en:{t:"Built with Claude: Life Sciences", r:"Ranked #13 of 500 · global hackathon"},
+           es:{t:"Built with Claude: Life Sciences", r:"Puesto #13 de 500 · hackathon global"}},
     fig:"assets/perturbseq.png",
     alt:{en:"Heatmap of operator modules over CD4+ T-cell regulatory programs.",
          es:"Mapa de calor de módulos del operador sobre programas regulatorios de células T CD4+."},
@@ -439,6 +450,11 @@ function renderStats(){
     `<div class="stat"><div class="v">${s.v}</div><div class="l">${s.l[L]}</div></div>`).join("");
 }
 
+function renderAward(aw, L){
+  return `<div class="award"><img class="award-ic" src="${aw.icon}" alt="Built with Claude: Life Sciences hackathon mascot" loading="lazy">
+    <span class="award-tx"><span class="award-t">${aw[L].t}</span><span class="award-r">${aw[L].r}</span></span></div>`;
+}
+
 function renderActions(actions){
   const a = UI[state.lang].act;
   return actions.map(x=>{
@@ -487,6 +503,7 @@ function renderProject(p, i, N, L, X){
       <div class="body">
         <div class="ptop"><h3 class="ptitle">${p.title}</h3><span class="year">${p.year}</span></div>
         <p class="line">${p.line[L][X]}</p>
+        ${p.award ? renderAward(p.award, L) : ""}
         ${mid}
         <div class="tags">${tags}</div>
         <div class="links">${links}</div>
