@@ -119,8 +119,16 @@
 
   /* hackathon award badge */
   .award{display:inline-flex; align-items:center; gap:11px; margin:14px 0 0; padding:7px 15px 7px 7px;
-         border:2.5px solid var(--accent); background:color-mix(in srgb,var(--accent) 9%,transparent); transition:border-color .45s var(--ease), background .45s var(--ease)}
-  .award-ic{width:46px; height:46px; object-fit:contain; flex:0 0 auto}
+         border:2.5px solid var(--accent); background:color-mix(in srgb,var(--accent) 9%,transparent); overflow:visible;
+         transition:border-color .45s var(--ease), background .45s var(--ease)}
+  .award-ic{position:relative; width:46px; height:27px; flex:0 0 auto; transition:transform .26s cubic-bezier(.34,1.56,.64,1)}
+  .award-ic .mi{position:absolute; left:0; bottom:0; width:46px; height:auto; transition:opacity .12s ease}
+  .award-ic .mi-jump{opacity:0}
+  .award:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+  .award:hover .award-ic{transform:translateY(-9px)}
+  .award:hover .mi-idle{opacity:0}
+  .award:hover .mi-jump{opacity:1}
+  @media (prefers-reduced-motion:reduce){ .award:hover .award-ic{transform:none} }
   .award-tx{display:flex; flex-direction:column; gap:2px}
   .award-t{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink)}
   .award-r{font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--accent); transition:color .45s var(--ease)}
@@ -323,7 +331,7 @@ const P = [
   {
     featured:true, title:"CD4⁺ T-cell Regulator Atlas — Perturb-seq", year:"2026",
     order:{industry:2, research:2},
-    award:{icon:"assets/mascot.png",
+    award:{icon:"assets/mascot.png", iconHover:"assets/mascot-jump.png",
            en:{t:"Built with Claude: Life Sciences", r:"Ranked #13 of 500 · global hackathon"},
            es:{t:"Built with Claude: Life Sciences", r:"Puesto #13 de 500 · hackathon global"}},
     fig:"assets/perturbseq.png",
@@ -451,7 +459,9 @@ function renderStats(){
 }
 
 function renderAward(aw, L){
-  return `<div class="award"><img class="award-ic" src="${aw.icon}" alt="Built with Claude: Life Sciences hackathon mascot" loading="lazy">
+  return `<div class="award"><span class="award-ic">
+      <img class="mi mi-idle" src="${aw.icon}" alt="Built with Claude: Life Sciences hackathon mascot" loading="lazy">
+      <img class="mi mi-jump" src="${aw.iconHover}" alt="" aria-hidden="true" loading="lazy"></span>
     <span class="award-tx"><span class="award-t">${aw[L].t}</span><span class="award-r">${aw[L].r}</span></span></div>`;
 }
 
